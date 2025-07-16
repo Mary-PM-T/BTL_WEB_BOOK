@@ -1,7 +1,4 @@
-
-// ============================
 // CẤU TRÚC DANH MỤC SÁCH
-// ============================
 let books = {
   'Book-TTT': [],
   'Book-KT': [],
@@ -13,9 +10,7 @@ let books = {
   'BookNew': []
 };
 
-// ============================
 // NẠP DỮ LIỆU TỪ localStorage
-// ============================
 document.addEventListener("DOMContentLoaded", () => {
   const storedBooks = JSON.parse(localStorage.getItem("books"));
   if (storedBooks) books = storedBooks;
@@ -40,9 +35,7 @@ function closeAddBookModal() {
     document.getElementById('addBookForm').reset();
 }
 
-// ============================
 // THÊM SÁCH MỚI
-// ============================
 function handleAddBook(e) {
   e.preventDefault();
 
@@ -86,9 +79,7 @@ function handleAddBook(e) {
   alert("✅ Đã thêm sách thành công!");
 }
 
-// ============================
 // HIỂN THỊ SÁCH THEO DANH MỤC
-// ============================
 function renderBooks(category) {
   const container = document.getElementById(category);
   if (!container) return;
@@ -116,9 +107,7 @@ function renderBooks(category) {
   `).join('');
 }
 
-// ============================
 // XÓA SÁCH
-// ============================
 function deleteBook(bookId, category) {
   if (!confirm("Bạn có chắc chắn muốn xóa sách này?")) return;
 
@@ -132,9 +121,7 @@ function deleteBook(bookId, category) {
   renderBooks(category);
 }
 
-// ============================
 // MỞ MODAL THÊM SÁCH
-// ============================
 function showAddBookModal(category = '') {
   const modal = document.getElementById("addBookModal");
   const select = document.getElementById("bookCategory");
@@ -142,9 +129,7 @@ function showAddBookModal(category = '') {
   if (category && select) select.value = category;
 }
 
-// ============================
 // ĐÓNG MODAL THÊM SÁCH
-// ============================
 function closeAddBookModal() {
   const modal = document.getElementById("addBookModal");
   const form = document.querySelector("form");
@@ -152,9 +137,7 @@ function closeAddBookModal() {
   if (form) form.reset();
 }
 
-// ============================
 // TÌM KIẾM SÁCH TRONG DANH MỤC
-// ============================
 function searchBook() {
   const searchTerm = document.getElementById("searchInput").value.toLowerCase();
   if (!searchTerm) {
@@ -195,12 +178,57 @@ function searchBook() {
   if (!found) alert("Không tìm thấy sách nào phù hợp.");
 }
 
-// ============================
 // ĐÓNG MODAL KHI CLICK RA NGOÀI
-// ============================
 window.onclick = function (e) {
   const modal = document.getElementById("addBookModal");
   if (e.target === modal) {
     closeAddBookModal();
   }
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const bookTitles = document.querySelectorAll('.book-title');
+
+  bookTitles.forEach(title => {
+    title.addEventListener('click', (e) => {
+      const bookName = e.target.innerText.trim();
+      const allBooks = JSON.parse(localStorage.getItem('books')) || [];
+
+      const found = allBooks.find(book => book.title === bookName);
+      if (found) {
+        localStorage.setItem('selectedBook', JSON.stringify(found));
+        window.location.href = 'bookDetail.html'; 
+      }
+    });
+  });
+});
+
+
+// CLICK VAO DE XEM CHI TIET SACH
+function renderBooks(category) {
+  const container = document.getElementById(category);
+  container.innerHTML = books[category].map(book => `
+    <div class="book-f2-one">
+      <div class="book-card" data-id="${book.id}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
+        <div class="book-image" onclick="viewDetails(${book.id})">
+          <img src="${book.image}" alt="${book.title}">
+        </div>
+        <div class="book-content">
+          <h3>${book.title}</h3>
+          <p>Tác giả: ${book.author}</p>
+          <p>Giá: ${book.price.toLocaleString()}đ</p>
+        </div>
+        <button onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function viewDetails(id) {
+  const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
+  const book = bookDetails[id];
+  if (book) {
+    localStorage.setItem("selectedBook", JSON.stringify(book));
+    window.location.href = "book.html";
+  }
+}
