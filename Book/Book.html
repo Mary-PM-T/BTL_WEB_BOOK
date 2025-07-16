@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang web sach - BTL</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="book.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="l">
+        <div class="logo"><p>BTL.SACH</p></div>
+        <span class="sTC">Trang chủ</span>
+      </div>
+
+      <div class="r">
+        <div class="search">
+          <input type="text" id="searchInput" placeholder="Nhập tên sách">
+          <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+        </div>
+
+        <div class="icon-group">
+          <a href="giohang.html" style="text-decoration: none; color: inherit;">
+            <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+          </a>
+
+          <div id="togg" class="lang-button">
+            <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+          </div>
+
+          <div id="nation" class="lang-select hidden">
+            <ul>
+              <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
+              <li><img src="https://flagcdn.com/w40/us.png" alt="US" onclick="selectFlag('us')"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="BC">
+      <a href="Home.html">Trang chủ /</a>
+      <a href="#">Danh mục /</a>
+      <a href="#" id="c-category">Chi tiết</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-frame">
+
+      <!-- CHI TIẾT SẢN PHẨM -->
+        <div class="product-section">
+            <div class="book-cover" id="bookImage">IMAGE BOOK</div>
+
+            <div class="book-info">
+            <h1 id="bookTitle">Tên sách</h1>
+            <div class="author">Tác giả: <span id="bookAuthor">---</span></div>
+            <div class="author">NXB: <span id="bookPublisher">---</span></div>
+
+            <div class="rating">
+                <span class="stars">★★★★★</span>
+                <span>(5 đánh giá)</span>
+            </div>
+
+            <div class="price-section">
+                <div class="price" id="bookPrice">Giá: ---</div>
+                <button class="discount-btn">Giảm giá</button>
+            </div>
+
+            <div class="quantity-section">
+                <span>Số lượng:</span>
+                <div class="quantity-controls">
+                <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                <input type="number" class="quantity-input" id="quantity" value="1" min="1">
+                <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                </div>
+                <span>Yêu thích</span>
+            </div>
+
+            <div class="book-details">
+                <h3>Thông tin chi tiết</h3>
+                <div class="detail-item">
+                <span class="detail-label">Mã hàng:</span>
+                <span id="bookId">---</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Tác giả:</span>
+                <span id="detailAuthor">---</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">NXB:</span>
+                <span id="detailPublisher">---</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Năm XB:</span>
+                <span>2024</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Ngôn ngữ:</span>
+                <span>Tiếng Việt</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Trọng lượng:</span>
+                <span>---g</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Số trang:</span>
+                <span>---</span>
+                </div>
+                <div class="detail-item">
+                <span class="detail-label">Hình thức:</span>
+                <span>Bìa mềm</span>
+                </div>
+            </div>
+
+            <button class="add-to-cart" onclick="addToCart()">Gợi ý cho bạn</button>
+            </div>
+        </div>
+
+      <!-- COMMENT -->
+      <div class="reviews-section">
+        <div class="reviews-header">
+          <h3>Đánh giá sản phẩm</h3>
+          <span>0★</span>
+        </div>
+
+        <div class="review-form">
+          <h4>Bình luận</h4>
+          <textarea class="review-textarea" placeholder="Nhập đánh giá của bạn..."></textarea>
+        </div>
+      </div>
+
+      <!-- GỢI Ý SÁCH -->
+      <div class="related-books">
+        <h3>Sản phẩm liên quan</h3>
+        <div class="books-grid" id="relatedBooks"></div>
+      </div>
+
+    </div> <!-- END MAIN -->
+
+  </div> <!-- END CONTAINER -->
+
+  <script src="Full.js"></script>
+  <script src="book.js"></script>
+</body>
+</html>
 
