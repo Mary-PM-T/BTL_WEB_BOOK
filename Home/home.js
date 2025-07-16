@@ -1,55 +1,90 @@
-document.addEventListener("DOMContentLoaded", () =>{
-    quantitySelector();
-    getBookID(id);
-    rDetail(book);
+document.addEventListener("DOMContentLoaded", () => {
+  sliderShow();
+  loadBooksFromStorage();
 });
 
-/* QUANTITY */
-function quantitySelector() {
-  const dec = document.getElementById("dec-btn");
-  const inc = document.getElementById("inc-btn");
-  const qty = document.getElementById("qty");
-  if (!dec || !inc || !qty) return;
+/* =============================
+   SLIDER TỰ ĐỘNG HIỂN THỊ ẢNH
+============================= */
+function sliderShow() {
+  const slides = document.querySelectorAll(".slide");
+  if (slides.length === 0) return;
 
-  let count = parseInt(qty.value, 10) || 1;
-  const updateButtons = () => {
-    qty.value = count;
-    dec.disabled = count <= 1;
-    inc.disabled = count >= 10;
+  let current = 0;
+  const showSlide = (i) => {
+    slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
   };
-  dec.addEventListener("click", () => {
-    if (count > 1) {
-      count--;
-      updateButtons();
-    }
-  });
-  inc.addEventListener("click", () => {
-    if (count < 10) {
-      count++;
-      updateButtons();
-    }
-  });
-  updateButtons();
+  const nextSlide = () => {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  };
+  showSlide(current);
+  setInterval(nextSlide, 3000);
 }
 
-function getBookID(id) {
-    const p = JSON.parse(localStorage("books") || "[]");
-    return books.find(book => book.id == id);
+/* =============================
+   HIỂN THỊ SÁCH TỪ localStorage
+============================= */
+function loadBooksFromStorage() {
+  const store = JSON.parse(localStorage.getItem("books")) || {};
+
+  Object.keys(store).forEach(category => {
+    const container = document.getElementById(category);
+    if (!container) return;
+
+    const books = store[category];
+    if (books.length === 0) {
+      container.innerHTML = `<p>Chưa có sách nào trong danh mục này.</p>`;
+      return;
+    }
+
+    books.forEach(book => {
+      const bookHTML = `
+        <div class="book-f2-one">
+          <div class="book-card" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
+            <div class="book-image">
+              <img src="${book.image || 'https://via.placeholder.com/150'}" alt="${book.title}">
+            </div>
+            <div class="book-content">
+              <h3>${book.title}</h3>
+              <p>Tác giả: ${book.author}</p>
+              <p>Giá: ${book.price.toLocaleString()}đ</p>
+            </div>
+            <div class="book-price">
+              ${book.originalPrice ? `<div class="original-price">${book.originalPrice.toLocaleString()}đ</div>` : ""}
+              <div class="current-price">${book.price.toLocaleString()}đ</div>
+              <div class="cart-icon add-cart-btn" data-id="${book.id}">🛒</div>
+            </div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML("beforeend", bookHTML);
+    });
+  });
+
+  // Gắn lại sự kiện cho nút giỏ sau khi render xong
+  addToCart();
 }
 
-function rDetail(book) {
-    const discount = Math.round(100 - (book.Original / book.Price)*100);
-    document.getElementById("bookDetail").innerHTML = `
-    <div class="l">
-        <div class="book-image">
-            <img src="${book.image}" alt="${book.title}"/>
+function loadBooksFromStorage() {
+  const store = JSON.parse(localStorage.getItem("books")) || {};
+  Object.keys(store).forEach(category => {
+    const container = document.getElementById(category);
+    container.innerHTML = store[category].map(book => `
+      <div class="book-f2-one">
+        <div class="book-card" data-id="${book.id}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
+          <div class="book-image" onclick="viewDetails(${book.id})">
+            <img src="${book.image}" alt="${book.title}">
+          </div>
+          <div class="book-content">
+            <h3>${book.title}</h3>
+            <p>Tác giả: ${book.author}</p>
+            <p>Giá: ${book.price.toLocaleString()}đ</p>
+          </div>
         </div>
-        <div ></div>
-    </div>
-    <div class="r">
-        <div class="book-info">
-            <div class="book"></div>
-        </div>
-    </div>
-    `;
+      </div>
+    `).join('');
+  });
 }
+
+
