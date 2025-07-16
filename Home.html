@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web sach - BTL</title>
+    <link rel="stylesheet" href="home.css"/>
+</head>
+
+<body>
+    
+    <div class="container">
+        <!--------- HEADER --------->
+        <header>
+            <div class="l">
+                <div class="logo"><p>BTL.SACH</p></div>
+                <span class="sTC">Trang chủ</span>
+                </div>
+
+            <div class="r">
+                <div class="search">
+                    <input type="text" id="searchInput" placeholder="Nhập tên sách">
+                    <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+                </div>
+
+                <div class="icon-group">
+                    <a href="giohang.html" style="text-decoration: none; color: inherit;">
+                        <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+                    </a>
+
+                    <!-- Nút chọn ngôn ngữ -->
+                    <div id="togg" class="lang-button">
+                        <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+                    </div>
+
+                    <!-- Menu cờ -->
+                    <div id="nation" class="lang-select hidden">
+                        <ul>
+                            <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
+                        <li><img src="https://flagcdn.com/w40/us.png" alt="US" onclick="selectFlag('us')"></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!--------- MAIN-FRAME --------->
+        <div class="main-frame">
+            <div class="left">
+                <!--------- list book --------->
+                <div class="Menu-Book">
+                    <div class="MB-titles">Danh mục sản phẩm</div>
+                    <a href="">Sách kinh tế</a>
+                    <a href="">Sách văn học</a>
+                    <a href="">Sách thiếu nhi</a>
+                    <a href="">Sách kĩ năng</a>
+                    <a href="">Sách tâm lý</a>
+                    <a href="">Sách giáo khoa</a>
+                    <a href="">Sách mới 2025</a>
+                </div>
+                <!--------- selection contents --------->
+                <div>
+                    <div class="select">Sách mới xuất hành</div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!--------- ---------- --------->
+            <div class="right">
+                <!--------- slider image --------->
+                <div class="slider-img">
+                    <div class="show-pic">
+                        <img src="images/Anh1.jpg" class="slide active" />
+                        <img src="images/Anh2.jpg" class="slide" />
+                        <img src="images/Anh3.jpg" class="slide" />
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Top thịnh hành</div>
+                    <div class="book-f2" id="Book-TTT">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Kinh Tế</div>
+                    <div class="book-f2" id="Book-KT">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Văn Học</div>
+                    <div class="book-f2" id="Book-VH">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Kĩ Năng</div>
+                    <div class="book-f2" id="Book-KN">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="Full.js"></script>
+    <script src="home.js"></script>
+
+</body>
+</html>
