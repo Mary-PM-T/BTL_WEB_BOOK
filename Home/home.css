@@ -1,0 +1,401 @@
+/*=======================
+Project : Book library;
+Author : Nguyen Thi Kim Oanh;
+MSSV: 2451012071;
+=======================*/
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: auto;
+    overflow-y: auto;
+}
+body {
+    background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1400px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/*=========== HEADER ===========*/
+header {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #428eb7 0%, rgb(63, 111, 173) 50%, #2e4da1 100%);
+    color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.l {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.sTC {
+    font-size: 1.6rem;
+    color: white;
+    white-space: nowrap;
+}
+
+.r {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/*=========== SEARCH ===========*/
+.search {
+    display: flex;
+    width: 450px;
+    height: 45px;
+}
+
+.search input {
+    flex: 1;
+    padding: 0 12px;
+    border-radius: 15px 0 0 15px;
+    font-size: 1rem;
+    border: none;
+}
+
+.search .search-nut {
+    width: 100px;
+    padding: 0 12px;
+    background-color: #ff4646;
+    color: white;
+    border-radius: 0 15px 15px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+}
+
+/*=========== ICON & NGÔN NGỮ ===========*/
+.icon-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+}
+
+.lang-button {
+    width: 60px;
+    height: 40px;
+    background-color: white;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.flag-icon {
+    width: 95%;
+    height: auto;
+    object-fit: cover;
+}
+
+.lang-select {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.lang-select ul {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.lang-select img {
+    width: 24px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.lang-select.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+.lang-select.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/*=========== MAIN FRAME ===========*/
+.main-frame {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    flex-wrap: wrap;
+    background-color:#F0F8FF;
+}
+
+.left {
+    flex: 1;
+    max-width: 28%;
+    border-right: 2px solid #97ceff;
+    padding-right: 20px;
+}
+
+.right {
+    flex: 2;
+    max-width: 70%;    
+    margin-right: 8px;
+}
+
+/*=========== MENU BOOK ===========*/
+.Menu-Book {
+    background-color: white;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1.5px solid #9ae4ff;
+}
+
+.MB-titles {
+    background: linear-gradient(135deg, #4384a8 0%, #4460ab 100%);
+    font-size: 1.6rem;
+    color: white;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 15px;
+}
+
+.Menu-Book a {
+    display: block;
+    color: #3553a7;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-right: 5px;
+}
+
+.Menu-Book a:hover {
+    background: linear-gradient(135deg, #87CEEB 0%, #5DADE2 100%);
+    border-radius: 7px;
+    color: white;
+    transform: translateX(3px);
+    box-shadow: 0 3px 12px rgba(135, 206, 235, 0.3);
+}
+
+/*=========== SLIDER ===========*/
+.slider-img {
+    width: 100%;
+    height: 250px;
+    background: #eefcff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 7px;
+    position: relative;
+}
+
+.show-pic {
+    width: 98%;
+    height: 95%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/*=========== SELECT TITLE ===========*/
+.select {
+    background: linear-gradient(135deg, #ff7777 0%, #ff5252 100%);
+    padding: 5px 15px;
+    font-weight: bold;
+    font-size: 22px;
+    border-radius: 7px;
+    color: white;
+    margin: 15px 5px;
+}
+
+/*=========== BOOK FRAME 1 ===========*/
+.book-f1 {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border: 1px solid rgb(215, 255, 255);
+    border-right: 1.5px solid rgba(135, 206, 235, 0.3);
+    border-bottom: 1px solid #F0F8FF;
+    padding: 5%;
+    margin: 0.7vh;
+    box-shadow: 2px 0 10px rgba(44, 95, 122, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-f1:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0.5vw 1vw rgba(83, 176, 212, 0.3);
+}
+
+.book-f1 img {
+    width: 100%;
+    height: auto;
+    border-radius: 1vw;
+    margin-bottom: 3%;
+    object-fit: cover;
+    font-size: 10px;
+}
+.book-f1-one {
+    display: flex;
+    gap: 19px;
+}
+.book-info {
+    width: 100%;
+    text-align: right;
+}
+
+.book-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-author {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-price {
+    text-align: right;
+    font-size: 10px;
+    color: rgb(196, 35, 35);
+    font-weight: bold;
+}
+
+
+/*=========== BOOK FRAME 2 ===========*/
+.book-f2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.book-f2-one {
+    flex: 1 1 calc(25% - 20px);
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.book-f2-one:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(54, 54, 54, 0.3);
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.book-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-color: #5b9bd5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-content {
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 1rem;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: gray;
+    margin-bottom: 5px;
+}
+
+.current-price {
+    color: red;
+    font-weight: bold;
+    text-align: right;
+    justify-content: center;
+}
+
+.cart-icon {
+    background-color: #ea0000;
+    color: white;
+    padding: 0 3px;
+    border-radius: 5px;
+}
