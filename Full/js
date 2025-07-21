@@ -1,0 +1,137 @@
+document.addEventListener("DOMContentLoaded", () => {
+  keepLayout();
+  searchBook();
+  filterBooks();
+  langgueguaToggle();
+  addToCart();
+
+  // Kích hoạt tìm kiếm khi gõ
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", searchBook);
+  }
+});
+
+/* =============== GIỮ TỶ LỆ WEB =============== */
+function keepLayout() {
+  const base = 1440;
+  const container = document.querySelector(".container");
+  if (!container) return;
+
+  const scaleWeb = () => {
+    const ratio = Math.min(window.innerWidth / base, 1);
+    container.style.transform = `scale(${ratio})`;
+    container.style.transformOrigin = "top center";
+  };
+  window.addEventListener("resize", scaleWeb);
+  scaleWeb();
+}
+
+/* =============== TÌM KIẾM SÁCH =============== */
+function searchBook() {
+  const keyword = document.getElementById("searchInput")?.value.trim().toLowerCase();
+  const books = document.querySelectorAll(".book-card");
+
+  books.forEach((book) => {
+    const title = book.dataset.title?.toLowerCase() || "";
+    const author = book.dataset.author?.toLowerCase() || "";
+    const parent = book.parentElement;
+    if (title.includes(keyword) || author.includes(keyword) || keyword === "")
+      parent.style.display = "flex";
+    else parent.style.display = "none";
+  });
+}
+
+/* =============== ĐỔI NGÔN NGỮ / LÁ CỜ =============== */
+function langgueguaToggle() {
+  const nation = document.getElementById("nation");
+  const togg = document.getElementById("togg");
+  togg?.addEventListener("click", () => {
+    nation?.classList.toggle("visible");
+    nation?.classList.toggle("hidden");
+  });
+}
+
+function selectFlag(langCode) {
+  let flag = "";
+  if (langCode === "vn") flag = "https://flagcdn.com/w40/vn.png";
+  if (langCode === "us") flag = "https://flagcdn.com/w40/us.png";
+
+  const selectedFlag = document.getElementById("selectedFlag");
+  const nation = document.getElementById("nation");
+
+  if (selectedFlag) {
+    selectedFlag.src = flag;
+    selectedFlag.alt = langCode.toUpperCase();
+  }
+  nation?.classList.remove("visible");
+  nation?.classList.add("hidden");
+}
+
+/* =============== LỌC SÁCH =============== */
+function filterBooks() {
+  const priceLinks = document.querySelectorAll(".filter-section.price a");
+  const authorLinks = document.querySelectorAll(".filter-section.author a");
+  if (priceLinks.length === 0 && authorLinks.length === 0) return;
+
+  let pMin = 0, pMax = Infinity, Author = "all";
+
+  priceLinks.forEach((a) =>
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      pMin = parseInt(a.dataset.min, 10);
+      pMax = parseInt(a.dataset.max, 10);
+      setActive(priceLinks, a);
+      filterb();
+    })
+  );
+
+  authorLinks.forEach((a) =>
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      Author = a.dataset.author;
+      setActive(authorLinks, a);
+      filterb();
+    })
+  );
+
+  function filterb() {
+    document.querySelectorAll(".book-card").forEach((card) => {
+      const P = parseInt(card.dataset.price, 10);
+      const A = card.dataset.author;
+      const matchP = P >= pMin && P <= pMax;
+      const matchA = Author === "all" || A === Author;
+      card.parentElement.style.display = matchP && matchA ? "flex" : "none";
+    });
+  }
+
+  function setActive(linkList, target) {
+    linkList.forEach((a) => a.classList.remove("active"));
+    target.classList.add("active");
+  }
+}
+
+/* =============== THÊM VÀO GIỎ HÀNG =============== */
+function addToCart() {
+  document.querySelectorAll(".add-cart-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".book-card");
+      const id = card.dataset.title;
+      const title = card.dataset.title;
+      const author = card.dataset.author;
+      const price = Number(card.dataset.price);
+      const img = card.querySelector("img").src;
+
+      const item = { id, title, author, price, img, quantity: 1 };
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existing = cart.find((p) => p.id === id);
+      if (existing) existing.quantity += 1;
+      else cart.push(item);
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Đã thêm “${title}” vào giỏ hàng`);
+    });
+  });
+}
+
