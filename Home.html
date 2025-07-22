@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web sach - BTL</title>
+    <link rel="stylesheet" href="home.css"/>
+    <style>
+        .main-frame {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            background-color:#F0F8FF;
+        }
+        .left {
+            flex: 1;
+            max-width: 28%;
+            border-right: 2px solid #97ceff;
+            padding-right: 20px;
+        }
+        .right {
+            flex: 2;
+            max-width: 70%;    
+            margin-right: 8px;
+        }
+
+        /*=========== MENU BOOK ===========*/
+        .Menu-Book {
+            background-color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 1.5px solid #9ae4ff;
+        }
+
+        .MB-titles {
+            background: linear-gradient(135deg, #4384a8 0%, #4460ab 100%);
+            font-size: 1.6rem;
+            color: white;
+            height: 60px;
+            line-height: 60px;
+            padding-left: 15px;
+        }
+
+        .Menu-Book a {
+            display: block;
+            color: #3553a7;
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .Menu-Book a:hover {
+            background: linear-gradient(135deg, #87CEEB 0%, #5DADE2 100%);
+            border-radius: 7px;
+            color: white;
+            transform: translateX(3px);
+            box-shadow: 0 3px 12px rgba(135, 206, 235, 0.3);
+        }
+
+        /*=========== SLIDER ===========*/
+        .slider-img {
+            width: 100%;
+            height: 250px;
+            background: #eefcff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 7px;
+            position: relative;
+        }
+
+        .show-pic {
+            width: 98%;
+            height: 95%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /*=========== SELECT TITLE ===========*/
+        .select {
+            background: linear-gradient(135deg, #ff7777 0%, #ff5252 100%);
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 22px;
+            border-radius: 7px;
+            color: white;
+            margin: 15px 5px;
+        }
+
+        /*=========== BOOK FRAME 1 ===========*/
+        .book-f1 {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #fff;
+            border: 1px solid rgb(215, 255, 255);
+            border-right: 1.5px solid rgba(135, 206, 235, 0.3);
+            border-bottom: 1px solid #F0F8FF;
+            padding: 5%;
+            margin: 0.7vh;
+            box-shadow: 2px 0 10px rgba(44, 95, 122, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-f1:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0.5vw 1vw rgba(83, 176, 212, 0.3);
+        }
+
+        .book-f1 img {
+            width: 100%;
+            height: auto;
+            border-radius: 1vw;
+            margin-bottom: 3%;
+            object-fit: cover;
+            font-size: 10px;
+        }
+        .book-f1-one {
+            display: flex;
+            gap: 19px;
+        }
+        .book-info {
+            width: 100%;
+            text-align: right;
+        }
+
+        .book-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-author {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 1%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-price {
+            text-align: right;
+            font-size: 10px;
+            color: rgb(196, 35, 35);
+            font-weight: bold;
+        }
+
+
+        /*=========== BOOK FRAME 2 ===========*/
+        .book-f2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .book-f2-one {
+            flex: 1 1 calc(25% - 20px);
+            background-color: white;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .book-f2-one:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(54, 54, 54, 0.3);
+        }
+
+        .book-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .book-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: #5b9bd5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-content {
+            padding: 10px;
+            font-size: 1rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .book-price {
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 20px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            text-align: left;
+            color: gray;
+            margin-bottom: 5px;
+        }
+        .P {
+            display: flex;
+            gap: 10px;
+        }
+        .current-price {
+            padding-left: 20px;
+            color: black;
+            font-weight: bold;
+            text-align: left;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .dis-icon {
+            width: 50px;
+            height: 35px;
+            background-color: #ea0000;
+            color: white;
+            padding: 0 3px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+        <!--------- HEADER --------->
+        <header>
+            <div class="l">
+                <div class="logo"><p>BTL.SACH</p></div>
+                <span class="sTC">Trang chủ</span>
+                </div>
+
+            <div class="r">
+                <div class="search">
+                    <input type="text" id="searchInput" placeholder="Nhập tên sách">
+                    <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+                </div>
+
+                <div class="icon-group">
+                    <a href="Cart.html" style="text-decoration: none; color: inherit;">
+                        <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+                    </a>
+
+                    <!-- Nút chọn ngôn ngữ -->
+                    <div id="togg" class="lang-button">
+                        <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+                    </div>
+
+                    <!-- Menu cờ -->
+                    <div id="nation" class="lang-select hidden">
+                        <ul>
+                            <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
+                        <li><img src="https://flagcdn.com/w40/us.png" alt="US" onclick="selectFlag('us')"></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <!--------- MAIN-FRAME --------->
+        <div class="main-frame">
+            <div class="left">
+                <!--------- list book --------->
+                <div class="Menu-Book">
+                    <div class="MB-titles">Danh mục sản phẩm</div>
+                    <a href="/category/kinh-te" data-category="Book-KT">Sách kinh tế</a>
+                    <a href="/category/van-hoc" data-category="Book-VH">Sách văn học</a>
+                    <a href="/category/thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
+                    <a href="/category/ki-nang" data-category="Book-KN">Sách kĩ năng</a>
+                    <a href="/category/tam-ly" data-category="Book-TL">Sách tâm lý</a>
+                    <a href="/category/giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
+                    <a href="/category/thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
+                    <a href="/category/moi-2025" data-category="Book-M2025">Sách mới 2025</a>
+                </div>
+                <!--------- selection contents --------->
+                <div>
+                    <div class="select">Sách mới xuất hành</div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-info">
+                                    <h3 class="book-title">Tên sách</h3>
+                                    <p class="book-author">Tác giả: ABC</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="book-info">
+                            <p class="book-price">Giá: 120.000đ</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!--------- ---------- --------->
+            <div class="right">
+                <!--------- slider image --------->
+                <div class="slider-img">
+                    <div class="show-pic">
+                        <img src="images/Anh1.jpg" class="slide active" />
+                        <img src="images/Anh2.jpg" class="slide" />
+                        <img src="images/Anh3.jpg" class="slide" />
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Top thịnh hành</div>
+                    <div class="book-f2" id="Book-TTT">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Kinh Tế</div>
+                    <div class="book-f2" id="Book-KT">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Văn Học</div>
+                    <div class="book-f2" id="Book-VH">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Kĩ Năng</div>
+                    <div class="book-f2" id="Book-KN">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Thiếu Nhi</div>
+                    <div class="book-f2" id="Book-TN">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Tâm Lý</div>
+                    <div class="book-f2" id="Book-TL">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Giáo Khoa</div>
+                    <div class="book-f2" id="Book-GK">
+                    </div>
+                </div>
+                <!--------- selection contents --------->
+                <div class="book-f2-frame">
+                    <div class="select">Sách Mới</div>
+                    <div class="book-f2" id="BookNew">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="Full.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () =>{
+            sliderShow();
+            loadBook();
+        });
+        /* ---------- SLIDER HIỂN ẢNH TỰ ĐỘNG ----------*/
+        function sliderShow() {
+            const slider = document.querySelectorAll(".slide");
+            if(slider.length === 0) return;
+
+            let c = 0;
+            const show = (i) =>{
+                slider.forEach((s,idx) => s.classList.toggle("active", idx === i));
+            };
+
+            const next = () =>{
+                c = (c + 1)  % slider.length;
+                show(c);
+            };
+            show(c);
+            setInterval(next, 3000);
+        }
+        /* ---------- NẠP DỮ LIỆU VÀ HIỂN THỊ ----------*/
+
+        function loadBook() {
+            const books = JSON.parse(localStorage.getItem("books"));
+
+            $.each(books, (category, booksInC) => {  // $.each(object, (key,value) => {}); - object
+                renderBooks(category, booksInC);
+            });
+        }
+
+        /* ---------- HIỂN THỊ SÁCH THEO FORM AND DANH MỤC ----------*/
+
+        function renderBooks(category, booksInC){
+            const $container = $("#" + category); // theo ID
+
+            if(!$container.length) return;
+            if(!booksInC.length) {
+                $container.html("<p>Chưa có sách nào.</p>");
+                return;
+            }
+
+            const max = 4;
+            const limitedBooks = booksInC.slice(0, max); // Hien thi toi da 4 sach dau
+            
+            const html = booksInC.map(book => {
+                const discount = Math.round(100 - (book.price/ book.originalPrice)*100);
+
+            return `
+                <div class="book-f2-one">
+                <div class="book-card" data-id="${book.id}">
+                    <div class="book-image">
+                    <img src="${book.image || 'https://via.placeholder.com/150'}" alt="${book.title}">
+                    </div>
+                    <div class="book-content">
+                    <h3>${book.title}</h3>
+                    <p>Tác giả: ${book.author}</p>
+                    </div>
+                    <div class="book-price">
+                    ${book.originalPrice ? `<div class="original-price">${book.originalPrice.toLocaleString()}.000đ</div>` : ""}
+                    <div class="P">
+                        <div class="current-price">${book.price.toLocaleString()}.000đ</div>
+                        ${discount > 0 ? `<div class="dis-icon">-${discount}%</div>` : ""}
+                    </div>
+                    </div>
+                </div>
+                </div>
+            `;
+            }).join('');
+            $container.html(html); // chen HTML
+
+            $container.find(".book-card").on("click", function() {
+                const id = $(this).data("id"); // lay du lieu tu id
+                viewData(id);
+            });
+        }
+        /* ---------- XEM CHI TIET SACH ----------*/
+        function viewData(id) {
+            const books = JSON.parse(localStorage.getItem("books"));
+            let book = null;
+            for(const category in books){
+                book = books[category].find( ma => ma.id === id);
+                if(book) break;
+            }
+            if(book){
+                localStorage.setItem("selectedBook", JSON.stringify(book));
+                window.location.href = "Book.html";
+            }
+        }
+
+    </script>
+</body>
+</html>
