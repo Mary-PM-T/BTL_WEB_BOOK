@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trang web sách - BTL</title>
+  <title>Hệ thống quản lý sách - BTL</title>
   <link rel="stylesheet" href="home.css"/>
   <style>
     .icon-group a {
@@ -117,18 +117,18 @@
     }
 
     .book-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
     }
 
     .book-card {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-        border: 1px solid #eee;
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: 1px solid #eee;
     }
 
     .book-card:hover {
@@ -251,6 +251,7 @@
     }
 
     .form-group {
+      width: 100%;
         margin-bottom: 15px;
     }
 
@@ -327,7 +328,7 @@
     <header>
       <div class="l">
         <div class="logo"><p>BTL.SACH</p></div>
-        <span class="sTC">Trang chủ</span>
+        <span class="sTC"><a href="Home.html">Trang chủ</a></span>
       </div>
       <div class="r">
         <div class="search">
@@ -335,7 +336,7 @@
           <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
         </div>
         <div class="icon-group">
-          <a href="giohang.html" style="text-decoration: none; color: inherit;">
+          <a href="Cart.html" style="text-decoration: none; color: inherit;">
             <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
           </a>
           <button class="admin-btn" onclick="showAddBookModal()">
@@ -350,13 +351,14 @@
       <div class="left">
         <div class="Menu-Book">
           <div class="MB-titles">Danh mục sản phẩm</div>
-          <a href="#" onclick="showCategory('Book-KT')">Sách kinh tế</a>
-          <a href="#" onclick="showCategory('Book-VH')">Sách văn học</a>
-          <a href="#" onclick="showCategory('Book-TN')">Sách thiếu nhi</a>
-          <a href="#" onclick="showCategory('Book-KN')">Sách kĩ năng</a>
-          <a href="#" onclick="showCategory('Book-TL')">Sách tâm lý</a>
-          <a href="#" onclick="showCategory('Book-GK')">Sách giáo khoa</a>
-          <a href="#" onclick="showCategory('BookNew')">Sách mới 2025</a>
+            <a href="/category/kinh-te" data-category="Book-KT">Sách kinh tế</a>
+            <a href="/category/van-hoc" data-category="Book-VH">Sách văn học</a>
+            <a href="/category/thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
+            <a href="/category/ki-nang" data-category="Book-KN">Sách kĩ năng</a>
+            <a href="/category/tam-ly" data-category="Book-TL">Sách tâm lý</a>
+            <a href="/category/giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
+            <a href="/category/thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
+            <a href="/category/moi-2025" data-category="Book-M2025">Sách mới 2025</a>
         </div>
       </div>
 
@@ -383,14 +385,14 @@
         <div class="form-group"><label for="bookTitle">Tên sách:</label><input type="text" id="bookTitle" name="bookTitle" required /></div>
         <div class="form-group"><label for="bookAuthor">Tác giả:</label><input type="text" id="bookAuthor" name="bookAuthor" required /></div>
         <div class="form-group"><label for="bookPublisher">Nhà xuất bản:</label><input type="text" id="bookPublisher" name="bookPublisher" required/></div>
-        <div class="form-group"><label for="bookBuy">Lượt bán:</label><input type="number" id="bookBuy" name="bookBuy" required/></div>
-        <div class="form-group"><label for="bookStar">Đánh giá:</label><input type="number" id="bookStar" name="bookStar" required/></div>
+        <div class="form-group"><label for="bookBuy">Lượt bán:</label><input type="text" id="bookBuy" name="bookBuy" required/></div>
+        <div class="form-group"><label for="bookStar">Đánh giá:</label><input type="text" id="bookStar" name="bookStar" required/></div>
         <div class="form-group"><label for="bookPages">Số trang:</label><input type="number" id="bookPages" name="bookPages" required/></div>
         <div class="form-group"><label for="bookYear">Năm xuất bản:</label><input type="number" id="bookYear" name="bookYear" required/></div>
         <div class="form-group"><label for="bookOriginal">Giá gốc:</label><input type="number" id="bookOriginal" name="bookOriginal" required /></div>
         <div class="form-group"><label for="bookPrice">Giá hiện tại:</label><input type="number" id="bookPrice" name="bookPrice" required /></div>
         <div class="form-group"><label for="bookImage">URL ảnh:</label><input type="url" id="bookImage" name="bookImage" required /></div>
-        <div class="form-group"><label for="bookDesc">Mô tả nội dung:</label><textarea id="bookDesc" name="bookDesc" rows="3"></textarea></div>
+        <div class="form-group"><label for="bookDesc">Mô tả nội dung:</label><textarea id="bookDesc" name="bookDesc" rows="5"></textarea></div>
         <div class="form-group">
           <label for="bookLang">Ngôn ngữ:</label>
           <select id="bookLang" name="bookLang" required>
@@ -415,7 +417,7 @@
       </form>
     </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="Full.js"></script>
   <script src="a.js"></script>
 </body>
