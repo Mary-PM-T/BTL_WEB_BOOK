@@ -116,8 +116,7 @@
             border: 1px solid rgb(215, 255, 255);
             border-right: 1.5px solid rgba(135, 206, 235, 0.3);
             border-bottom: 1px solid #F0F8FF;
-            padding: 5%;
-            margin: 0.7vh;
+            padding: 3%;
             box-shadow: 2px 0 10px rgba(44, 95, 122, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -128,34 +127,39 @@
         }
 
         .book-f1 img {
-            width: 100%;
+            width: 150px;
             height: auto;
-            border-radius: 1vw;
-            margin-bottom: 3%;
+            justify-content: center;
             object-fit: cover;
             font-size: 10px;
         }
         .book-f1-one {
+            height: 170px;
             display: flex;
-            gap: 19px;
+            gap: 10px;
         }
         .book-info {
             width: 100%;
-            text-align: right;
+            text-align: left;
         }
 
         .book-title {
             font-size: 12px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 1%;
-            white-space: nowrap;
+            padding: 0 10px;
+            margin-top: 30px;
+            text-indent: 1em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            word-break: break-word;
         }
 
         .book-author {
-            font-size: 12px;
+            font-size: 15px;
             color: #666;
             margin-bottom: 1%;
             white-space: nowrap;
@@ -173,13 +177,13 @@
 
         /*=========== BOOK FRAME 2 ===========*/
         .book-f2 {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
-            padding: 20px 0;
         }
 
         .book-f2-one {
+            width: 100%;
             flex: 1 1 calc(25% - 20px);
             background-color: white;
             border-radius: 6px;
@@ -193,18 +197,22 @@
         }
 
         .book-card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
         }
 
         .book-image {
-            width: 100%;
-            aspect-ratio: 3/4;
-            background-color: #5b9bd5;
+            margin-bottom: 15px;
+            width: 235px;
+            height: 350px; 
+            background: #f0f0f0;
+            border-radius: 8px;
             display: flex;
-            align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .book-image img {
@@ -212,14 +220,23 @@
             height: 100%;
             object-fit: cover;
         }
+        book-image.placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 48px;
+        }
 
         .book-content {
+            width: 100%;
             padding: 10px;
-            font-size: 1rem;
             text-align: center;
-            white-space: nowrap;
+        }
+        .book-content h3, p {
+            font-size: 1rem;
+            white-space: normal;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: block;
         }
 
         .book-price {
@@ -240,7 +257,7 @@
             gap: 10px;
         }
         .current-price {
-            padding-left: 20px;
+            padding-left: 15px;
             color: black;
             font-weight: bold;
             text-align: left;
@@ -251,6 +268,7 @@
         .dis-icon {
             width: 50px;
             height: 35px;
+            margin: 10px;
             background-color: #ea0000;
             color: white;
             padding: 0 3px;
@@ -314,51 +332,53 @@
                 </div>
                 <!--------- selection contents --------->
                 <div>
-                    <div class="select">Sách mới xuất hành</div>
+                    <div class="select">Combo Sách hot</div>
                     <div class="book-f1">
                         <div class="book-f1-one">
-                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div><img src="images/combo1.webp" alt="Sách 1"></div>
                             <div>
                                 <div class="book-info">
-                                    <h3 class="book-title">Tên sách</h3>
-                                    <p class="book-author">Tác giả: ABC</p>
+                                    <h3 class="book-title">Combo 3 cuốn: Nơi Khu Rừng Chạm Tới Những Vì Sao + Những Cung Đường Dưới Bầu Trời Sao + Nắng Xuyên Qua Vòm Lá</h3>
+                                    <p class="book-author">Tác giả: Glendy Vanderah</p>
+                                    <div class="book-info">
+                                        <p class="book-price">Giá: 412.000đ</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="book-info">
-                            <p class="book-price">Giá: 120.000đ</p>
-                        </div>
                     </div>
+
                     <div class="book-f1">
                         <div class="book-f1-one">
-                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div><img src="images/combo2+.webp" alt="Sách 2"></div>
                             <div>
                                 <div class="book-info">
-                                    <h3 class="book-title">Tên sách</h3>
-                                    <p class="book-author">Tác giả: ABC</p>
+                                    <h3 class="book-title">Combo Gia đình tỉnh thức + Cha mẹ tỉnh thức</h3>
+                                    <p class="book-author">Tác giả: Shefali Tsabary</p>
+                                    <div class="book-info">
+                                        <p class="book-price">Giá: 223.680đ</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="book-info">
-                            <p class="book-price">Giá: 120.000đ</p>
-                        </div>
                     </div>
+
                     <div class="book-f1">
                         <div class="book-f1-one">
-                            <div><img src="book1-f1.jpg" alt="Sách 1"></div>
+                            <div><img src="images/combo3.webp" alt="Sách 3"></div>
                             <div>
                                 <div class="book-info">
-                                    <h3 class="book-title">Tên sách</h3>
-                                    <p class="book-author">Tác giả: ABC</p>
+                                    <h3 class="book-title">Sách: Combo 4 Cuốn Khi Bạn Đang Mơ + Vươn Lên Hoặc Bị Đánh Bại + Mỗi Lần Vấp Ngã + Không Phải Thiếu May Mắn</h3>
+                                    <p class="book-author">Tác giả: nhiều Tác Giả</p>
+                                    <div class="book-info">
+                                        <p class="book-price">Giá: 392.270đ</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="book-info">
-                            <p class="book-price">Giá: 120.000đ</p>
-                        </div>
                     </div>
 
                 </div>
