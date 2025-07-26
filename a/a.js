@@ -1,15 +1,3 @@
-// CẤU TRÚC DANH MỤC SÁCH
-let books = {
-  'Book-TTT': [],
-  'Book-KT': [],
-  'Book-VH': [],
-  'Book-TN': [],
-  'Book-KN': [],
-  'Book-TL': [],
-  'Book-GK': [],
-  'BookNew': []
-};
-
 // NẠP DỮ LIỆU TỪ localStorage
 document.addEventListener("DOMContentLoaded", () => {
   const storedBooks = JSON.parse(localStorage.getItem("books"));
@@ -24,15 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function showAddBookModal(category = '') {
-    document.getElementById('addBookModal').style.display = 'block';
-    if (category) {
-        document.getElementById('bookCategory').value = category;
-    }
+  const modal = document.getElementById("addBookModal");
+  const select = document.getElementById("bookCategory");
+  if (modal) modal.style.display = "block";
+  if (category && select) select.value = category;
 }
 
 function closeAddBookModal() {
-    document.getElementById('addBookModal').style.display = 'none';
-    document.getElementById('addBookForm').reset();
+  const modal = document.getElementById("addBookModal");
+  const form = document.querySelector("form");
+  if (modal) modal.style.display = "none";
+  if (form) form.reset();
 }
 
 // THÊM SÁCH MỚI
@@ -42,34 +32,28 @@ function handleAddBook(e) {
   const title = document.getElementById("bookTitle").value;
   const author = document.getElementById("bookAuthor").value;
   const publisher = document.getElementById("bookPublisher").value;
+  const star = parseFloat(document.getElementById("bookStar").value);
+  const buy = parseInt(document.getElementById("bookBuy").value);
   const pages = parseInt(document.getElementById("bookPages").value);
   const year = parseInt(document.getElementById("bookYear").value);
   const price = parseFloat(document.getElementById("bookPrice").value);
   const originalPrice = parseFloat(document.getElementById("bookOriginal").value);
+  const discount = Math.round(100 - (price / originalPrice) * 100);
+  const lang = document.getElementById("bookLang").value;
   const image = document.getElementById("bookImage").value;
   const description = document.getElementById("bookDesc").value;
   const category = document.getElementById("bookCategory").value;
 
   const newBook = {
     id: Date.now(),
-    title,
-    author,
-    publisher,
-    pages,
-    year,
-    price,
-    originalPrice,
-    image,
-    description,
-    category
+    title, author, publisher, star, buy, pages, year,
+    price, originalPrice, discount, lang, image, description, category
   };
 
-  // Thêm vào mảng theo danh mục
   if (!books[category]) books[category] = [];
   books[category].push(newBook);
   localStorage.setItem("books", JSON.stringify(books));
 
-  // Lưu chi tiết để hiển thị ở Book.html
   const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
   bookDetails[newBook.id] = newBook;
   localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
@@ -82,26 +66,25 @@ function handleAddBook(e) {
 // HIỂN THỊ SÁCH THEO DANH MỤC
 function renderBooks(category) {
   const container = document.getElementById(category);
-  if (!container) return;
-
-  const categoryBooks = books[category];
-  if (!categoryBooks || categoryBooks.length === 0) {
-    container.innerHTML = `<p class="empty">Chưa có sách nào.</p>`;
+  const list = books[category];
+  if (!container || !list || list.length === 0) {
+    container.innerHTML = `<p class="empty-state">Chưa có sách nào trong danh mục này</p>`;
     return;
   }
 
-  container.innerHTML = categoryBooks.map(book => `
+  container.innerHTML = list.map(book => `
     <div class="book-f2-one">
-      <div class="book-card" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
-        <div class="book-image">
-          <img src="${book.image}" alt="${book.title}">
+      <div class="book-card" data-id="${book.id}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
+        <div class="book-image" onclick="viewDetails(${book.id})">
+          <img src="${book.image}" alt="${book.title}" />
         </div>
         <div class="book-content">
           <h3>${book.title}</h3>
           <p>Tác giả: ${book.author}</p>
-          <p>Giá: ${book.price.toLocaleString()}đ</p>
+          <p>Giá gốc: ${Number(book.originalPrice).toLocaleString('vi-VN')}.000đ</p>
+          <p>Giá hiện tại: ${Number(book.price).toLocaleString('vi-VN')}.000đ</p>
         </div>
-        <button class="delete-btn" onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
+        <button onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
       </div>
     </div>
   `).join('');
@@ -121,61 +104,16 @@ function deleteBook(bookId, category) {
   renderBooks(category);
 }
 
-// MỞ MODAL THÊM SÁCH
-function showAddBookModal(category = '') {
-  const modal = document.getElementById("addBookModal");
-  const select = document.getElementById("bookCategory");
-  if (modal) modal.style.display = "block";
-  if (category && select) select.value = category;
-}
 
-// ĐÓNG MODAL THÊM SÁCH
-function closeAddBookModal() {
-  const modal = document.getElementById("addBookModal");
-  const form = document.querySelector("form");
-  if (modal) modal.style.display = "none";
-  if (form) form.reset();
-}
 
-// TÌM KIẾM SÁCH TRONG DANH MỤC
-function searchBook() {
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-  if (!searchTerm) {
-    alert("Vui lòng nhập tên sách để tìm kiếm.");
-    return;
+// CLICK XEM CHI TIẾT SÁCH
+function viewDetails(id) {
+  const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
+  const book = bookDetails[id];
+  if (book) {
+    localStorage.setItem("selectedBook", JSON.stringify(book));
+    window.location.href = "book.html";
   }
-
-  let found = false;
-  for (const category in books) {
-    const container = document.getElementById(category);
-    if (!container) continue;
-
-    const matched = books[category].filter(book =>
-      book.title.toLowerCase().includes(searchTerm) ||
-      book.author.toLowerCase().includes(searchTerm)
-    );
-
-    if (matched.length > 0) {
-      found = true;
-      container.innerHTML = matched.map(book => `
-        <div class="book-f2-one">
-          <div class="book-card" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
-            <div class="book-image">
-              <img src="${book.image}" alt="${book.title}">
-            </div>
-            <div class="book-content">
-              <h3>${book.title}</h3>
-              <p>Tác giả: ${book.author}</p>
-              <p>Giá: ${book.price.toLocaleString()}đ</p>
-            </div>
-            <button class="delete-btn" onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
-          </div>
-        </div>
-      `).join('');
-    }
-  }
-
-  if (!found) alert("Không tìm thấy sách nào phù hợp.");
 }
 
 // ĐÓNG MODAL KHI CLICK RA NGOÀI
@@ -185,50 +123,3 @@ window.onclick = function (e) {
     closeAddBookModal();
   }
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const bookTitles = document.querySelectorAll('.book-title');
-
-  bookTitles.forEach(title => {
-    title.addEventListener('click', (e) => {
-      const bookName = e.target.innerText.trim();
-      const allBooks = JSON.parse(localStorage.getItem('books')) || [];
-
-      const found = allBooks.find(book => book.title === bookName);
-      if (found) {
-        localStorage.setItem('selectedBook', JSON.stringify(found));
-        window.location.href = 'bookDetail.html'; 
-      }
-    });
-  });
-});
-
-
-// CLICK VAO DE XEM CHI TIET SACH
-function renderBooks(category) {
-  const container = document.getElementById(category);
-  container.innerHTML = books[category].map(book => `
-    <div class="book-f2-one">
-      <div class="book-card" data-id="${book.id}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
-        <div class="book-image" onclick="viewDetails(${book.id})">
-          <img src="${book.image}" alt="${book.title}">
-        </div>
-        <div class="book-content">
-          <h3>${book.title}</h3>
-          <p>Tác giả: ${book.author}</p>
-          <p>Giá: ${book.price.toLocaleString()}đ</p>
-        </div>
-        <button onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function viewDetails(id) {
-  const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
-  const book = bookDetails[id];
-  if (book) {
-    localStorage.setItem("selectedBook", JSON.stringify(book));
-    window.location.href = "book.html";
-  }
-}
