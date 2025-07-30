@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hệ thống quản lý sách - BTL</title>
-  <link rel="stylesheet" href="home.css"/>
-  <style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ thống quản lý sách - BTL</title>
+    <link rel="stylesheet" href="home.css"/>
+    <style>
     .icon-group a {
         color: white;
         text-decoration: none;
         font-size: 20px;
         transition: transform 0.3s ease;
     }
-
     .admin-btn {
         background: #ff6b6b;
         color: white;
@@ -116,83 +115,6 @@
         transform: translateY(-2px);
     }
 
-    .book-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .book-card {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      border: 1px solid #eee;
-    }
-
-    .book-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-
-    .book-image {
-        margin: -12px;
-        margin-bottom: 15px;
-        width: 235px;
-        height: 300px; 
-        background: #f0f0f0;
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-
-    .book-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .book-image.placeholder {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        font-size: 48px;
-    }
-
-    .book-title {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
-    }
-
-    .book-author {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 10px;
-        font-style: italic;
-    }
-
-    .book-price {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .current-price {
-        font-size: 16px;
-        font-weight: bold;
-        color: #ff6b6b;
-    }
-
-    .original-price {
-        font-size: 14px;
-        color: #999;
-        text-decoration: line-through;
-    }
-
     .cart-icon {
         background: #667eea;
         color: white;
@@ -251,7 +173,7 @@
     }
 
     .form-group {
-      width: 100%;
+        width: 100%;
         margin-bottom: 15px;
     }
 
@@ -319,106 +241,106 @@
         background: #ff5252;
     }
 
-  </style>
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <!-- HEADER -->
-    <header>
-      <div class="l">
-        <div class="logo"><p>BTL.SACH</p></div>
-        <span class="sTC"><a href="Home.html">Trang chủ</a></span>
-      </div>
-      <div class="r">
-        <div class="search">
-          <input type="text" id="searchInput" placeholder="Nhập tên sách" />
-          <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
-        </div>
-        <div class="icon-group">
-          <a href="Cart.html" style="text-decoration: none; color: inherit;">
-            <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
-          </a>
-          <button class="admin-btn" onclick="showAddBookModal()">
-            <i class="fa fa-plus"></i> Thêm sách
-          </button>
-        </div>
-      </div>
-    </header>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="l">
+            <div class="logo"><p>BTL.SACH</p></div>
+            <span class="sTC"><a href="Home.html">Trang chủ</a></span>
+            </div>
+            <div class="r">
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Nhập tên sách" />
+                <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+            </div>
+            <div class="icon-group">
+                <a href="Cart.html" style="text-decoration: none; color: inherit;">
+                <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+                </a>
+                <button class="admin-btn" onclick="showAddBookModal()">
+                <i class="fa fa-plus"></i> Thêm sách
+                </button>
+            </div>
+            </div>
+        </header>
 
-    <!-- MAIN FRAME -->
-    <div class="main-frame">
-      <div class="left">
-        <div class="Menu-Book">
-          <div class="MB-titles">Danh mục sản phẩm</div>
-            <a href="/category/kinh-te" data-category="Book-KT">Sách kinh tế</a>
-            <a href="/category/van-hoc" data-category="Book-VH">Sách văn học</a>
-            <a href="/category/thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
-            <a href="/category/ki-nang" data-category="Book-KN">Sách kĩ năng</a>
-            <a href="/category/tam-ly" data-category="Book-TL">Sách tâm lý</a>
-            <a href="/category/giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
-            <a href="/category/thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
-            <a href="/category/moi-2025" data-category="Book-M2025">Sách mới 2025</a>
-        </div>
-      </div>
+        <!-- MAIN FRAME -->
+        <div class="main-frame">
+            <div class="left">
+            <div class="Menu-Book">
+                <div class="MB-titles">Danh mục sản phẩm</div>
+                <a href="/category/kinh-te" data-category="Book-KT">Sách kinh tế</a>
+                <a href="/category/van-hoc" data-category="Book-VH">Sách văn học</a>
+                <a href="/category/thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
+                <a href="/category/ki-nang" data-category="Book-KN">Sách kĩ năng</a>
+                <a href="/category/tam-ly" data-category="Book-TL">Sách tâm lý</a>
+                <a href="/category/giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
+                <a href="/category/thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
+                <a href="/category/moi-2025" data-category="BookNew">Sách mới 2025</a>
+            </div>
+            </div>
 
-      <div class="right">
-        <!-- Danh mục hiển thị -->
-        <div class="book-section"><div class="section-title">Top thịnh hành</div><div class="book-grid" id="Book-TTT"></div></div>
-        <div class="book-section"><div class="section-title">Sách kinh tế</div><div class="book-grid" id="Book-KT"></div></div>
-        <div class="book-section"><div class="section-title">Sách văn học</div><div class="book-grid" id="Book-VH"></div></div>
-        <div class="book-section"><div class="section-title">Sách kĩ năng</div><div class="book-grid" id="Book-KN"></div></div>
-        <div class="book-section"><div class="section-title">Sách thiếu nhi</div><div class="book-grid" id="Book-TN"></div></div>
-        <div class="book-section"><div class="section-title">Sách tâm lý</div><div class="book-grid" id="Book-TL"></div></div>
-        <div class="book-section"><div class="section-title">Sách giáo khoa</div><div class="book-grid" id="Book-GK"></div></div>
-        <div class="book-section"><div class="section-title">Sách mới 2025</div><div class="book-grid" id="BookNew"></div></div>
-      </div>
+            <div class="right">
+            <!-- Danh mục hiển thị -->
+            <div class="book-section"><div class="section-title">Top thịnh hành</div><div class="book-grid" id="Book-TTT"></div></div>
+            <div class="book-section"><div class="section-title">Sách kinh tế</div><div class="book-grid" id="Book-KT"></div></div>
+            <div class="book-section"><div class="section-title">Sách văn học</div><div class="book-grid" id="Book-VH"></div></div>
+            <div class="book-section"><div class="section-title">Sách kĩ năng</div><div class="book-grid" id="Book-KN"></div></div>
+            <div class="book-section"><div class="section-title">Sách thiếu nhi</div><div class="book-grid" id="Book-TN"></div></div>
+            <div class="book-section"><div class="section-title">Sách tâm lý</div><div class="book-grid" id="Book-TL"></div></div>
+            <div class="book-section"><div class="section-title">Sách giáo khoa</div><div class="book-grid" id="Book-GK"></div></div>
+            <div class="book-section"><div class="section-title">Sách mới 2025</div><div class="book-grid" id="BookNew"></div></div>
+            </div>
+        </div>
     </div>
-  </div>
 
   <!-- Modal thêm sách -->
-  <div id="addBookModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeAddBookModal()">×</span>
-      <h2>Thêm Sách Mới</h2>
-      <form id="addBookForm">
-        <div class="form-group"><label for="bookTitle">Tên sách:</label><input type="text" id="bookTitle" name="bookTitle" required /></div>
-        <div class="form-group"><label for="bookAuthor">Tác giả:</label><input type="text" id="bookAuthor" name="bookAuthor" required /></div>
-        <div class="form-group"><label for="bookPublisher">Nhà xuất bản:</label><input type="text" id="bookPublisher" name="bookPublisher" required/></div>
-        <div class="form-group"><label for="bookBuy">Lượt bán:</label><input type="text" id="bookBuy" name="bookBuy" required/></div>
-        <div class="form-group"><label for="bookStar">Đánh giá:</label><input type="text" id="bookStar" name="bookStar" required/></div>
-        <div class="form-group"><label for="bookPages">Số trang:</label><input type="number" id="bookPages" name="bookPages" required/></div>
-        <div class="form-group"><label for="bookYear">Năm xuất bản:</label><input type="number" id="bookYear" name="bookYear" required/></div>
-        <div class="form-group"><label for="bookOriginal">Giá gốc:</label><input type="number" id="bookOriginal" name="bookOriginal" required /></div>
-        <div class="form-group"><label for="bookPrice">Giá hiện tại:</label><input type="number" id="bookPrice" name="bookPrice" required /></div>
-        <div class="form-group"><label for="bookImage">URL ảnh:</label><input type="url" id="bookImage" name="bookImage" required /></div>
-        <div class="form-group"><label for="bookDesc">Mô tả nội dung:</label><textarea id="bookDesc" name="bookDesc" rows="5"></textarea></div>
-        <div class="form-group">
-          <label for="bookLang">Ngôn ngữ:</label>
-          <select id="bookLang" name="bookLang" required>
-            <option value="VN">Tiếng Việt</option>
-            <option value="US">Tiếng Anh</option>
-          </select>
+    <div id="addBookModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddBookModal()">×</span>
+            <h2>Thêm Sách Mới</h2>
+            <form id="addBookForm">
+                <div class="form-group"><label for="bookTitle">Tên sách:</label><input type="text" id="bookTitle" name="bookTitle" required /></div>
+                <div class="form-group"><label for="bookAuthor">Tác giả:</label><input type="text" id="bookAuthor" name="bookAuthor" required /></div>
+                <div class="form-group"><label for="bookPublisher">Nhà xuất bản:</label><input type="text" id="bookPublisher" name="bookPublisher" required/></div>
+                <div class="form-group"><label for="bookBuy">Lượt bán:</label><input type="text" id="bookBuy" name="bookBuy" required/></div>
+                <div class="form-group"><label for="bookStar">Đánh giá:</label><input type="text" id="bookStar" name="bookStar" required/></div>
+                <div class="form-group"><label for="bookPages">Số trang:</label><input type="number" id="bookPages" name="bookPages" required/></div>
+                <div class="form-group"><label for="bookYear">Năm xuất bản:</label><input type="number" id="bookYear" name="bookYear" required/></div>
+                <div class="form-group"><label for="bookOriginal">Giá gốc:</label><input type="number" id="bookOriginal" name="bookOriginal" required /></div>
+                <div class="form-group"><label for="bookPrice">Giá hiện tại:</label><input type="number" id="bookPrice" name="bookPrice" required /></div>
+                <div class="form-group"><label for="bookImage">URL ảnh:</label><input type="url" id="bookImage" name="bookImage" required /></div>
+                <div class="form-group"><label for="bookDesc">Mô tả nội dung:</label><textarea id="bookDesc" name="bookDesc" rows="5"></textarea></div>
+                <div class="form-group">
+                    <label for="bookLang">Ngôn ngữ:</label>
+                    <select id="bookLang" name="bookLang" required>
+                    <option value="VN">Tiếng Việt</option>
+                    <option value="US">Tiếng Anh</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookCategory">Danh mục:</label>
+                    <select id="bookCategory" name="bookCategory" required>
+                    <option value="Book-TTT">Top thịnh hành</option>
+                    <option value="Book-KT">Sách kinh tế</option>
+                    <option value="Book-VH">Sách văn học</option>
+                    <option value="Book-TN">Sách thiếu nhi</option>
+                    <option value="Book-KN">Sách kĩ năng</option>
+                    <option value="Book-TL">Sách tâm lý</option>
+                    <option value="Book-GK">Sách giáo khoa</option>
+                    <option value="BookNew">Sách mới 2025</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Thêm sách</button>
+            </form>
         </div>
-        <div class="form-group">
-          <label for="bookCategory">Danh mục:</label>
-          <select id="bookCategory" name="bookCategory" required>
-            <option value="Book-TTT">Top thịnh hành</option>
-            <option value="Book-KT">Sách kinh tế</option>
-            <option value="Book-VH">Sách văn học</option>
-            <option value="Book-TN">Sách thiếu nhi</option>
-            <option value="Book-KN">Sách kĩ năng</option>
-            <option value="Book-TL">Sách tâm lý</option>
-            <option value="Book-GK">Sách giáo khoa</option>
-            <option value="BookNew">Sách mới 2025</option>
-          </select>
-        </div>
-        <button type="submit" class="submit-btn">Thêm sách</button>
-      </form>
     </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="Full.js"></script>
-  <script src="a.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="Full.js"></script>
+    <script src="a.js"></script>
 </body>
 </html>
