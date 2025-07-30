@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+
+        .main-frame {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            background-color:#F0F8FF;
+        }
+        .left {
+            flex: 1;
+            max-width: 28%;
+            border-right: 2px solid #97ceff;
+            padding-right: 20px;
+        }
+        .right {
+            flex: 2;
+            max-width: 70%;    
+            margin-right: 8px;
+        }
+
+        /*=========== MENU BOOK ===========*/
+        .Menu-Book {
+            background-color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 1.5px solid #9ae4ff;
+        }
+
+        .MB-titles {
+            background: linear-gradient(135deg, #4384a8 0%, #4460ab 100%);
+            font-size: 1.6rem;
+            color: white;
+            height: 60px;
+            line-height: 60px;
+            padding-left: 15px;
+        }
+
+        .Menu-Book a {
+            display: block;
+            color: #3553a7;
+            font-size: 1.2rem;
+            padding: 10px 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .Menu-Book a:hover {
+            background: linear-gradient(135deg, #87CEEB 0%, #5DADE2 100%);
+            border-radius: 7px;
+            color: white;
+            transform: translateX(3px);
+            box-shadow: 0 3px 12px rgba(135, 206, 235, 0.3);
+        }
+
+        /*=========== SLIDER ===========*/
+        .slider-img {
+            width: 100%;
+            height: 250px;
+            background: #eefcff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 7px;
+            position: relative;
+        }
+
+        .show-pic {
+            width: 98%;
+            height: 95%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        /*=========== SELECT TITLE ===========*/
+        .select {
+            background: linear-gradient(135deg, #ff7777 0%, #ff5252 100%);
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 22px;
+            border-radius: 7px;
+            color: white;
+            margin: 15px 5px;
+        }
+        /*=========== FILTER FORM ===========*/
+        .filter-form {
+            background: white;
+            border: 1.5px solid #9ae4ff;
+            border-radius: 7px;
+            padding: 20px;
+            margin: 15px 5px;
+            box-shadow: 0 2px 8px rgba(135, 206, 235, 0.15);
+        }
+
+        .filter-title {
+            background: linear-gradient(135deg, #4384a8 0%, #4460ab 100%);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 10px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: bold;
+            color: #3553a7;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid #87CEEB;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #4384a8;
+            box-shadow: 0 0 5px rgba(67, 132, 168, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-filter,
+        .btn-reset {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-filter {
+            background: linear-gradient(135deg, #4384a8 0%, #4460ab 100%);
+            color: white;
+        }
+
+        .btn-filter:hover {
+            background: linear-gradient(135deg, #3a7596 0%, #3c5499 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 132, 168, 0.3);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #ff7777 0%, #ff5252 100%);
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: linear-gradient(135deg, #e66565 0%, #e64747 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 119, 119, 0.3);
+        }
+
+        .filter-results {
+            margin: 10px 5px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-left: 4px solid #4384a8;
+            border-radius: 0 5px 5px 0;
+            font-weight: bold;
+            color: #3553a7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <!--------- HEADER --------->
+    <header>
+        <div class="l">
+            <div class="logo"><p>BTL.SACH</p></div>
+            <span class="sTC"><a href="Home.html">Trang chủ</a></span>
+        </div>
+
+        <div class="r">
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Nhập tên sách">
+                <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+            </div>
+
+            <div class="icon-group">
+                <a href="Cart.html" style="text-decoration: none; color: inherit;">
+                    <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+                </a>
+
+                <!-- Nút chọn ngôn ngữ -->
+                <div id="togg" class="lang-button">
+                    <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+                </div>
+
+                <!-- Menu cờ -->
+                <div id="nation" class="lang-select hidden">
+                    <ul>
+                        <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
+                        <li><img src="https://flagcdn.com/w40/us.png" alt="US" onclick="selectFlag('us')"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--------- MAIN-FRAME --------->
+        <div class="main-frame">
+            <div class="left">
+                <!--------- list book --------->
+                <div class="Menu-Book">
+                    <div class="MB-titles">Danh mục sản phẩm</div>
+                    <a href="category.html?category=kinh-te" data-category="Book-KT">Sách kinh tế</a>
+                    <a href="category.html?category=van-hoc" data-category="Book-VH">Sách văn học</a>
+                    <a href="category.html?category=thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
+                    <a href="category.html?category=ki-nang" data-category="Book-KN">Sách kĩ năng</a>
+                    <a href="category.html?category=tam-ly" data-category="Book-TL">Sách tâm lý</a>
+                    <a href="category.html?category=giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
+                    <a href="category.html?category=thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
+                    <a href="category.html?category=moi-2025" data-category="BookNew">Sách mới 2025</a>
+                </div>
+
+                <!--------- selection contents --------->
+                <div>
+                    <div class="select">Combo Sách hot</div>
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="images/combo1.webp" alt="Sách 1"></div>
+                            <div>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Combo 3 cuốn: Nơi Khu Rừng Chạm Tới Những Vì Sao + Những Cung Đường Dưới Bầu Trời Sao + Nắng Xuyên Qua Vòm Lá</h3>
+                                    <p class="book-f1-author">Tác giả: Glendy Vanderah</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 412.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="images/combo2+.webp" alt="Sách 2"></div>
+                            <div>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Combo Gia đình tỉnh thức + Cha mẹ tỉnh thức</h3>
+                                    <p class="book-f1-author">Tác giả: Shefali Tsabary</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 223.680đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="book-f1">
+                        <div class="book-f1-one">
+                            <div><img src="images/combo3.webp" alt="Sách 3"></div>
+                            <div>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Sách: Combo 4 Cuốn Khi Bạn Đang Mơ + Vươn Lên Hoặc Bị Đánh Bại + Mỗi Lần Vấp Ngã + Không Phải Thiếu May Mắn</h3>
+                                    <p class="book-f1-author">Tác giả: nhiều Tác Giả</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 392.270đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--------- ---------- --------->
+            <div class="right">
+                <div class="book-f2-frame">
+                    <div class="select" id="category-title"></div>
+                    <!--LỌC SÁCH THEO TÁC GIẢ + MỨC GIÁ-->
+                    <div class="filter-form">
+                        <div class="filter-title">🔍 Lọc sách</div>
+                        
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label for="author-filter">Tác giả:</label>
+                                <input type="text" id="author-filter" placeholder="Nhập tên tác giả...">
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="price-range-filter">Khoảng giá:</label>
+                                <select id="price-range-filter">
+                                    <option value="">-- Tất cả mức giá --</option>
+                                    <option value="0-100000">Dưới 100.000đ</option>
+                                    <option value="100000-200000">100.000đ - 200.000đ</option>
+                                    <option value="200000-300000">200.000đ - 300.000đ</option>
+                                    <option value="300000-500000">300.000đ - 500.000đ</option>
+                                    <option value="500000-700000">500.000đ - 700.000đ</option>
+                                    <option value="700000-1000000">700.000đ - 1.000.000đ</option>
+                                    <option value="1000000-99999999">Trên 1.000.000đ</option>
+                                </select>
+                            </div>
+                        </div> 
+                        
+                        <div class="filter-buttons">
+                            <button class="btn-filter" onclick="applyFilters()">Áp dụng bộ lọc</button>
+                            <button class="btn-reset" onclick="resetFilters()">Xóa bộ lọc</button>
+                        </div>
+                    </div>  <!--LỌC SÁCH THEO TÁC GIẢ + MỨC GIÁ-->
+
+                    <div class="book-f2" id="book-container"></div>
+                </div>
+            </div>
+        </div> <!--MAIN FRAME-->
+        
+
+    </div> <!--CONTAINER-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="Full.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const books = JSON.parse(localStorage.getItem("books")) || {};
+
+        const categoryMap = {
+            'kinh-te': 'Book-KT',
+            'van-hoc': 'Book-VH',
+            'thieu-nhi': 'Book-TN',
+            'ki-nang': 'Book-KN',
+            'tam-ly': 'Book-TL',
+            'giao-khoa': 'Book-GK',
+            'thinh-hanh': 'Book-TTT',
+            'moi-2025': 'BookNew'
+        };
+
+        const categoryTitles = {
+            'Book-KT': 'Sách kinh tế',
+            'Book-VH': 'Sách văn học',
+            'Book-TN': 'Sách thiếu nhi',
+            'Book-KN': 'Sách kĩ năng',
+            'Book-TL': 'Sách tâm lý',
+            'Book-GK': 'Sách giáo khoa',
+            'Book-TTT': 'Top thịnh hành',
+            'BookNew': 'Sách mới 2025'
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get("category");
+        const categoryKey = categoryMap[categoryParam];
+
+        if (!categoryKey || !books[categoryKey]) {
+            document.getElementById("book-container").innerHTML = "<p>Không tìm thấy thể loại hoặc chưa có dữ liệu.</p>";
+            return;
+        }
+
+        // Cập nhật tiêu đề
+        const titleEl = document.getElementById("category-title");
+        if (titleEl) titleEl.textContent = categoryTitles[categoryKey] || "Danh mục sách";
+
+        // Tạo container đúng ID để renderBooks nhận
+        const containerRoot = document.getElementById("book-container");
+        containerRoot.innerHTML = ""; // Xóa nội dung cũ
+
+        const newContainer = document.createElement("div");
+        newContainer.id = categoryKey;
+        containerRoot.appendChild(newContainer);
+
+        // Gọi renderBooks như đã thiết kế
+        renderBooks(categoryKey, books[categoryKey]);
+
+        // Kích hoạt trạng thái "active" cho danh mục đang chọn
+        document.querySelectorAll('.Menu-Book a').forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.category === categoryKey) {
+                link.classList.add('active');
+            }
+        });
+    });
+    // Khởi tạo form lọc (không cần thiết cho input text)
+    function initializeAuthorFilter() {
+        // Input text không cần khởi tạo dropdown
+        // Chỉ cần reset giá trị về rỗng
+        document.getElementById('author-filter').value = '';
+    }
+
+    // Áp dụng bộ lọc
+    function applyFilters() {
+        const authorInput = document.getElementById('author-filter').value.toLowerCase().trim();
+        const priceRange = document.getElementById('price-range-filter').value;
+        
+        // Xử lý khoảng giá
+        let minPrice = 0;
+        let maxPrice = Infinity;
+        
+        if (priceRange) {
+            const [min, max] = priceRange.split('-').map(p => parseFloat(p));
+            minPrice = min;
+            maxPrice = max;
+        }
+        
+        filteredBooks = originalBooks.filter(book => {
+            // Lọc theo tác giả (tìm kiếm có chứa)
+            const authorMatch = !authorInput || 
+                (book.author && book.author.toLowerCase().includes(authorInput));
+            
+            // Lọc theo giá
+            const bookPrice = parseFloat(book.price?.toString().replace(/[^\d]/g, '')) || 0;
+            const priceMatch = bookPrice >= minPrice && bookPrice <= maxPrice;
+            
+            return authorMatch && priceMatch;
+        });
+        
+        // Hiển thị kết quả lọc
+        showFilterResults();
+        
+        // Render lại sách đã lọc
+        const container = document.getElementById(currentCategory);
+        if (container) {
+            container.innerHTML = '';
+        }
+        renderBooks(currentCategory, filteredBooks);
+    }
+
+    // Reset bộ lọc
+    function resetFilters() {
+        document.getElementById('author-filter').value = '';
+        document.getElementById('price-range-filter').value = '';
+        
+        filteredBooks = [...originalBooks];
+        
+        // Ẩn thông báo kết quả lọc
+        document.getElementById('filter-results').style.display = 'none';
+        
+        // Render lại tất cả sách
+        const container = document.getElementById(currentCategory);
+        if (container) {
+            container.innerHTML = '';
+        }
+        renderBooks(currentCategory, filteredBooks);
+    }
+
+    // Hiển thị kết quả lọc
+    function showFilterResults() {
+        const resultsDiv = document.getElementById('filter-results');
+        const totalBooks = originalBooks.length;
+        const filteredCount = filteredBooks.length;
+        
+        if (filteredCount === totalBooks) {
+            resultsDiv.style.display = 'none';
+        } else {
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `📊 Hiển thị ${filteredCount} trong tổng số ${totalBooks} cuốn sách`;
+        }
+    }
+
+    // Hàm renderBooks giả định (bạn cần thay thế bằng hàm thực tế từ Full.js)
+    function renderBooks(categoryId, books) {
+        // Nếu hàm renderBooks đã có sẵn từ Full.js, chỉ cần gọi nó
+        // Nếu chưa có, đây là một implementation cơ bản:
+        
+        const container = document.getElementById(categoryId);
+        if (!container || !books) return;
+        
+        container.innerHTML = '';
+        
+        books.forEach((book, index) => {
+            const bookElement = document.createElement('div');
+            bookElement.className = 'book-item';
+            bookElement.innerHTML = `
+                <div class="book-card">
+                    <img src="${book.image || 'images/default-book.jpg'}" alt="${book.title}" style="width: 100%; height: 200px; object-fit: cover;">
+                    <h3>${book.title}</h3>
+                    <p>Tác giả: ${book.author || 'Không rõ'}</p>
+                    <p>Giá: ${book.price || 'Liên hệ'}</p>
+                </div>
+            `;
+            container.appendChild(bookElement);
+        });
+        
+        if (books.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">Không tìm thấy sách phù hợp với bộ lọc.</p>';
+        }
+    }
+</script>
+</body>
+</html>
