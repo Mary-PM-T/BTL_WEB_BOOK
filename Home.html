@@ -6,6 +6,7 @@
     <title>Trang web sach - BTL</title>
     <link rel="stylesheet" href="home.css"/>
     <style>
+        
         .main-frame {
             display: flex;
             gap: 20px;
@@ -107,229 +108,288 @@
             color: white;
             margin: 15px 5px;
         }
+        /*=========== LOGIN OR REGISTER==========*/
 
-        /*=========== BOOK FRAME 1 ===========*/
-        .book-f1 {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #fff;
-            border: 1px solid rgb(215, 255, 255);
-            border-right: 1.5px solid rgba(135, 206, 235, 0.3);
-            border-bottom: 1px solid #F0F8FF;
-            padding: 3%;
-            box-shadow: 2px 0 10px rgba(44, 95, 122, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /*-------- Nut --------*/
+        .account {
+            position: relative;
+            display: inline-block;
         }
-
-        .book-f1:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0.5vw 1vw rgba(83, 176, 212, 0.3);
-        }
-
-        .book-f1 img {
-            width: 150px;
-            height: auto;
-            justify-content: center;
-            object-fit: cover;
-            font-size: 10px;
-        }
-        .book-f1-one {
-            height: 170px;
-            display: flex;
-            gap: 10px;
-        }
-        .book-info {
-            width: 100%;
-            text-align: left;
-        }
-
-        .book-title {
-            font-size: 12px;
-            font-weight: bold;
-            color: #333;
-            padding: 0 10px;
-            margin-top: 30px;
-            text-indent: 1em;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; 
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            word-break: break-word;
-        }
-
-        .book-author {
-            font-size: 15px;
-            color: #666;
-            margin-bottom: 1%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .book-price {
-            text-align: right;
-            font-size: 10px;
-            color: rgb(196, 35, 35);
-            font-weight: bold;
-        }
-
-
-        /*=========== BOOK FRAME 2 ===========*/
-        .book-f2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .book-f2-one {
-            width: 100%;
-            flex: 1 1 calc(25% - 20px);
+        .account-menu {
+            position: absolute;
             background-color: white;
-            border-radius: 6px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            min-width: 100px;
+            border-radius: 5px;
+            height: 70px;
+            color: #3553a7;
+            font-weight: bold;
+            padding: 7px;
         }
-
-        .book-f2-one:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(54, 54, 54, 0.3);
+        .account-item:last-child {
+            padding-top: 5px;
+            border: none;
         }
-
-        .book-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border: 1px solid #eee;
+        .account-item {
+            padding-bottom: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            text-align: left;
+            border-bottom: 1px solid #b8b3b3;
         }
-
-        .book-image {
-            margin-bottom: 15px;
-            width: 235px;
-            height: 350px; 
-            background: #f0f0f0;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
+        .account-item:hover {
+            background-color: #f8f9fa;
+            color: #e74c3c;
         }
-
-        .book-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        /*-------- Bang  --------*/
+        #over {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            display: none;
         }
-        book-image.placeholder {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-size: 48px;
-        }
-
-        .book-content {
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-        }
-        .book-content h3, p {
-            font-size: 1rem;
-            white-space: normal;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        #over.active {
             display: block;
         }
-
-        .book-price {
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-            font-size: 20px;
+        #addAccount {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            z-index: 100;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        #addAccount.active {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        .modal {
+            width: 500PX;
+            border-radius: 15px;
+            margin: auto;
+            background-color: aliceblue;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        .original-price {
-            text-decoration: line-through;
-            text-align: left;
-            color: gray;
+        .p-header {
+            display: flex;
+            background-color: white;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #e74c3c;
+            background: white;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
             margin-bottom: 5px;
         }
-        .P {
-            display: flex;
-            gap: 10px;
+
+        .form-group input {
+            width: 90%;
+            padding: 10px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
         }
-        .current-price {
-            padding-left: 15px;
-            color: black;
-            font-weight: bold;
-            text-align: left;
-            justify-content: center;
-            font-size: 30px;
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
         }
 
-        .dis-icon {
-            width: 50px;
-            height: 35px;
-            margin: 10px;
-            background-color: #ea0000;
+        .show-hide {
+            position: absolute;
+            right: 80px;
+            padding-top: 10px;
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .x {
+            background: #d3d3d3;
+            color: #333;
+        }
+
+        .x:hover {
+            background: #c0c0c0;
+        }
+
+        .y {
+            background: transparent;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        .y:hover {
+            background: #e74c3c;
             color: white;
-            padding: 0 3px;
-            border-radius: 5px;
+        }
+
+        .DKCS {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .p-content {
+            padding: 20px 0;
+        }
+
+        #lF, #rF {
+            display: none;
+        }
+
+        .forgot-password {
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        .forgot-password a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
-    
-    <div class="container">
-        <!--------- HEADER --------->
-        <header>
-            <div class="l">
-                <div class="logo"><p>BTL.SACH</p></div>
-                <span class="sTC">Trang chủ</span>
-                </div>
+<div class="container">
+    <!--------- HEADER --------->
+    <header>
+        <div class="l">
+            <div class="logo"><p>BTL.SACH</p></div>
+            <span class="sTC"><p>Trang chủ</p></span>
+        </div>
 
-            <div class="r">
-                <div class="search">
-                    <input type="text" id="searchInput" placeholder="Nhập tên sách">
-                    <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
-                </div>
+        <div class="r">
+            <div class="search">
+                <input type="text" id="searchInput" placeholder="Nhập tên sách">
+                <button class="search-nut" onclick="searchBook()">Tìm kiếm</button>
+            </div>
 
-                <div class="icon-group">
-                    <a href="Cart.html" style="text-decoration: none; color: inherit;">
-                        <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
-                    </a>
-
-                    <!-- Nút chọn ngôn ngữ -->
-                    <div id="togg" class="lang-button">
-                        <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+            <div class="icon-group">
+                <a href="Cart.html" style="text-decoration: none; color: inherit;">
+                    <i class="fa fa-shopping-cart"></i><span> 🛒 </span>
+                </a>
+                <!-- Tai khoan -->
+                <div class="account">
+                    <img id="selectAccount" src="images/user.png" alt="User Icon">
+                    <div class="account-menu">
+                        <div class="account-item" onclick="openA('register')">Đăng ký</div>
+                        <div class="account-item" onclick="openA('login')">Đăng nhập</div>
                     </div>
+                </div>
 
-                    <!-- Menu cờ -->
-                    <div id="nation" class="lang-select hidden">
-                        <ul>
-                            <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
+                <!-- Nút chọn ngôn ngữ -->
+                <div id="togg" class="lang-button">
+                    <img id="selectedFlag" src="https://flagcdn.com/w40/vn.png" alt="VN" class="flag-icon">
+                </div>
+
+                <!-- Menu cờ -->
+                <div id="nation" class="lang-select hidden">
+                    <ul>
+                        <li><img src="https://flagcdn.com/w40/vn.png" alt="VN" onclick="selectFlag('vn')"></li>
                         <li><img src="https://flagcdn.com/w40/us.png" alt="US" onclick="selectFlag('us')"></li>
                     </ul>
-                    </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-
-        <!--------- MAIN-FRAME --------->
+    <!--------- MAIN-FRAME --------->
         <div class="main-frame">
             <div class="left">
                 <!--------- list book --------->
                 <div class="Menu-Book">
                     <div class="MB-titles">Danh mục sản phẩm</div>
-                    <a href="/category/kinh-te" data-category="Book-KT">Sách kinh tế</a>
-                    <a href="/category/van-hoc" data-category="Book-VH">Sách văn học</a>
-                    <a href="/category/thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
-                    <a href="/category/ki-nang" data-category="Book-KN">Sách kĩ năng</a>
-                    <a href="/category/tam-ly" data-category="Book-TL">Sách tâm lý</a>
-                    <a href="/category/giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
-                    <a href="/category/thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
-                    <a href="/category/moi-2025" data-category="Book-M2025">Sách mới 2025</a>
+                    <a href="category.html?category=kinh-te" data-category="Book-KT">Sách kinh tế</a>
+                    <a href="category.html?category=van-hoc" data-category="Book-VH">Sách văn học</a>
+                    <a href="category.html?category=thieu-nhi" data-category="Book-TN">Sách thiếu nhi</a>
+                    <a href="category.html?category=ki-nang" data-category="Book-KN">Sách kĩ năng</a>
+                    <a href="category.html?category=tam-ly" data-category="Book-TL">Sách tâm lý</a>
+                    <a href="category.html?category=giao-khoa" data-category="Book-GK">Sách giáo khoa</a>
+                    <a href="category.html?category=thinh-hanh" data-category="Book-TTT">Top thịnh hành</a>
+                    <a href="category.html?category=moi-2025" data-category="BookNew">Sách mới 2025</a>
                 </div>
+
                 <!--------- selection contents --------->
                 <div>
                     <div class="select">Combo Sách hot</div>
@@ -337,53 +397,49 @@
                         <div class="book-f1-one">
                             <div><img src="images/combo1.webp" alt="Sách 1"></div>
                             <div>
-                                <div class="book-info">
-                                    <h3 class="book-title">Combo 3 cuốn: Nơi Khu Rừng Chạm Tới Những Vì Sao + Những Cung Đường Dưới Bầu Trời Sao + Nắng Xuyên Qua Vòm Lá</h3>
-                                    <p class="book-author">Tác giả: Glendy Vanderah</p>
-                                    <div class="book-info">
-                                        <p class="book-price">Giá: 412.000đ</p>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Combo 3 cuốn: Nơi Khu Rừng Chạm Tới Những Vì Sao + Những Cung Đường Dưới Bầu Trời Sao + Nắng Xuyên Qua Vòm Lá</h3>
+                                    <p class="book-f1-author">Tác giả: Glendy Vanderah</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 412.000đ</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="book-f1">
                         <div class="book-f1-one">
                             <div><img src="images/combo2+.webp" alt="Sách 2"></div>
                             <div>
-                                <div class="book-info">
-                                    <h3 class="book-title">Combo Gia đình tỉnh thức + Cha mẹ tỉnh thức</h3>
-                                    <p class="book-author">Tác giả: Shefali Tsabary</p>
-                                    <div class="book-info">
-                                        <p class="book-price">Giá: 223.680đ</p>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Combo Gia đình tỉnh thức + Cha mẹ tỉnh thức</h3>
+                                    <p class="book-f1-author">Tác giả: Shefali Tsabary</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 223.680đ</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="book-f1">
                         <div class="book-f1-one">
                             <div><img src="images/combo3.webp" alt="Sách 3"></div>
                             <div>
-                                <div class="book-info">
-                                    <h3 class="book-title">Sách: Combo 4 Cuốn Khi Bạn Đang Mơ + Vươn Lên Hoặc Bị Đánh Bại + Mỗi Lần Vấp Ngã + Không Phải Thiếu May Mắn</h3>
-                                    <p class="book-author">Tác giả: nhiều Tác Giả</p>
-                                    <div class="book-info">
-                                        <p class="book-price">Giá: 392.270đ</p>
+                                <div class="book-f1-info">
+                                    <h3 class="book-f1-title">Sách: Combo 4 Cuốn Khi Bạn Đang Mơ + Vươn Lên Hoặc Bị Đánh Bại + Mỗi Lần Vấp Ngã + Không Phải Thiếu May Mắn</h3>
+                                    <p class="book-f1-author">Tác giả: nhiều Tác Giả</p>
+                                    <div class="book-f1-info">
+                                        <p class="book-f1-price">Giá: 392.270đ</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-
                 </div>
             </div>
-            
+
             <!--------- ---------- --------->
             <div class="right">
                 <!--------- slider image --------->
@@ -394,58 +450,118 @@
                         <img src="images/Anh3.jpg" class="slide" />
                     </div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Top thịnh hành</div>
-                    <div class="book-f2" id="Book-TTT">
-                    </div>
+                    <div class="book-f2" id="Book-TTT"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Kinh Tế</div>
-                    <div class="book-f2" id="Book-KT">
-                    </div>
+                    <div class="book-f2" id="Book-KT"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Văn Học</div>
-                    <div class="book-f2" id="Book-VH">
-                    </div>
+                    <div class="book-f2" id="Book-VH"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Kĩ Năng</div>
-                    <div class="book-f2" id="Book-KN">
-                    </div>
+                    <div class="book-f2" id="Book-KN"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Thiếu Nhi</div>
-                    <div class="book-f2" id="Book-TN">
-                    </div>
+                    <div class="book-f2" id="Book-TN"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Tâm Lý</div>
-                    <div class="book-f2" id="Book-TL">
-                    </div>
+                    <div class="book-f2" id="Book-TL"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Giáo Khoa</div>
-                    <div class="book-f2" id="Book-GK">
-                    </div>
+                    <div class="book-f2" id="Book-GK"></div>
                 </div>
+
                 <!--------- selection contents --------->
                 <div class="book-f2-frame">
                     <div class="select">Sách Mới</div>
-                    <div class="book-f2" id="BookNew">
-                    </div>
+                    <div class="book-f2" id="BookNew"></div>
                 </div>
+            </div>
+        </div> <!--MAIN FRAME-->
+        
 
+    </div> <!--CONTAINER-->
+
+
+
+    <div class="over" id="over" onclick="closeAddAccount()"></div>
+
+    <div id="addAccount" class="modal">
+        <button class="close-btn" onclick="closeAddAccount()">×</button>
+
+        <div class="p-header">
+            <button class="tab" id="dnhap" onclick="switchTab('login')">Đăng nhập</button>
+            <button class="tab active" id="dky" onclick="switchTab('register')">Đăng ký</button>
+        </div>
+
+        <div class="p-content">
+            <!-- Đăng ký -->
+            <div id="rF">
+            <div class="form-group">
+                <label for="TK">Số điện thoại/Email</label>
+                <input type="text" id="TK" name="TK" required placeholder="Nhập số điện thoại hoặc email">
+            </div>
+            <div class="form-group">
+                <label for="rPass">Mật khẩu</label>
+                <input type="password" id="rPass" name="rPass">
+                <button type="button" class="show-hide" onclick="togglePassword('rPass')">Hiện</button>
+            </div>
+            <div class="form-group">
+                <label for="cPass">Nhập lại mật khẩu</label>
+                <input type="password" id="cPass" name="cPass">
+                <button type="button" class="show-hide" onclick="togglePassword('cPass')">Hiện</button>
+            </div>
+            <button class="btn x" id="registerBtn">Đăng ký</button>
+            <div id="textRegister" style="text-align: center; font-size: 20px;"></div>
+            <button class="btn y" onclick="closeAddAccount()">Bỏ qua</button>
+            <div class="DKCS">
+                <p>Đăng ký đồng nghĩa với việc đồng ý</p>
+                <p>Điều khoản dịch vụ & Chính sách bảo mật</p>
+            </div>
+            </div>
+
+            <!-- Đăng nhập -->
+            <div id="lF">
+            <div class="form-group">
+                <label for="loginTK">Số điện thoại/Email</label>
+                <input type="text" id="loginTK" name="loginTK" required placeholder="Nhập số điện thoại hoặc email">
+            </div>
+            <div class="form-group">
+                <label for="lPass">Mật khẩu</label>
+                <input type="password" id="lPass" name="lPass" required placeholder="Nhập mật khẩu">
+                <button type="button" class="show-hide" onclick="togglePassword('lPass')">Hiện</button>
+                <div class="forgot-password"><a href="#">Quên mật khẩu?</a></div>
+            </div>
+            <button class="btn x" id="loginBtn">Đăng nhập</button>
+            <div id="textLogin" style="text-align: center; font-size: 20px;"></div>
+            <button class="btn y" onclick="closeAddAccount()">Bỏ qua</button>
             </div>
         </div>
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="Full.js"></script>
     <script>
@@ -470,61 +586,6 @@
             show(c);
             setInterval(next, 3000);
         }
-        /* ---------- NẠP DỮ LIỆU VÀ HIỂN THỊ ----------*/
-
-        function loadBook() {
-            const books = JSON.parse(localStorage.getItem("books"));
-
-            $.each(books, (category, booksInC) => {  // $.each(object, (key,value) => {}); - object
-                renderBooks(category, booksInC);
-            });
-        }
-
-        /* ---------- HIỂN THỊ SÁCH THEO FORM AND DANH MỤC ----------*/
-
-        function renderBooks(category, booksInC){
-            const $container = $("#" + category); // theo ID
-
-            if(!$container.length) return;
-            if(!booksInC.length) {
-                $container.html("<p>Chưa có sách nào.</p>");
-                return;
-            }
-
-            const max = 4;
-            const limitedBooks = booksInC.slice(0, max); // Hien thi toi da 4 sach dau
-            
-            const html = booksInC.map(book => {
-                const discount = Math.round(100 - (book.price/ book.originalPrice)*100);
-
-            return `
-                <div class="book-f2-one">
-                <div class="book-card" data-id="${book.id}">
-                    <div class="book-image">
-                    <img src="${book.image || 'https://via.placeholder.com/150'}" alt="${book.title}">
-                    </div>
-                    <div class="book-content">
-                    <h3>${book.title}</h3>
-                    <p>Tác giả: ${book.author}</p>
-                    </div>
-                    <div class="book-price">
-                    ${book.originalPrice ? `<div class="original-price">${book.originalPrice.toLocaleString()}.000đ</div>` : ""}
-                    <div class="P">
-                        <div class="current-price">${book.price.toLocaleString()}.000đ</div>
-                        ${discount > 0 ? `<div class="dis-icon">-${discount}%</div>` : ""}
-                    </div>
-                    </div>
-                </div>
-                </div>
-            `;
-            }).join('');
-            $container.html(html); // chen HTML
-
-            $container.find(".book-card").on("click", function() {
-                const id = $(this).data("id"); // lay du lieu tu id
-                viewData(id);
-            });
-        }
         /* ---------- XEM CHI TIET SACH ----------*/
         function viewData(id) {
             const books = JSON.parse(localStorage.getItem("books"));
@@ -538,6 +599,90 @@
                 window.location.href = "Book.html";
             }
         }
+
+        
+        /* ---------- ĐĂNG NHẬP HOẶC ĐĂNG KÝ ----------*/
+        function openA(type) {
+            const over = document.getElementById('over');
+            const Account = document.getElementById('addAccount');
+            
+            over.classList.add('active');
+            Account.classList.add('active');
+            switchTab(type);
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeAddAccount() {
+            const over = document.getElementById('over');
+            const Account = document.getElementById('addAccount');
+                
+            over.classList.remove('active');
+            Account.classList.remove('active');
+            
+            // Cho phép scroll body
+            document.body.style.overflow = 'auto';
+        }
+        
+        function switchTab(tab) {
+            const dnhap = document.getElementById('dnhap');
+            const dangky = document.getElementById('dky');
+            const lF = document.getElementById('lF');
+            const rF = document.getElementById('rF');
+            
+            if (tab === "login") {
+                dnhap.classList.add('active');
+                dky.classList.remove('active');
+                lF.style.display = "block";
+                rF.style.display = "none";
+            } else {
+                dnhap.classList.remove('active');
+                dky.classList.add('active');
+                rF.style.display = "block";
+                lF.style.display = "none";
+            }
+        }
+        
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = 'Ẩn';
+            } else {
+                input.type = 'password';
+                button.textContent = 'Hiện';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAddAccount();
+            }
+        });
+        
+        document.getElementById('addAccount').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        function successA(type){
+            if(type === 'login'){
+                alert('✅ Đã đăng nhập thành công');
+            } else if(type === 'register'){
+                alert('✅ Đã đăng ký thành công')
+            }
+
+            const avatar = document.getElementById('selectAccount');
+            if(avatar) avatar.src = 'images/u.png';
+            closeAddAccount();
+        }
+        document.getElementById('loginBtn').addEventListener('click', () =>{
+            successA('login');
+        } );
+        document.getElementById('registerBtn').addEventListener('click', () =>{
+            successA('register');
+        } );
+        
 
     </script>
 </body>
