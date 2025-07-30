@@ -74,46 +74,73 @@ function selectFlag(langCode) {
 
   $('#nation').removeClass('visible').addClass('hidden');
 }
+/* ---------- XEM CHI TIET SACH ----------*/
+function viewData(id) {
+  const books = JSON.parse(localStorage.getItem("books"));
+  let book = null;
+  for(const category in books){
+    book = books[category].find( ma => ma.id === id);
+    if(book) break;
+  }
+  if(book){
+    localStorage.setItem("selectedBook", JSON.stringify(book));
+    window.location.href = "Book.html";
+  }
+}
+window.viewDetails = viewData;
 
-/* ===== Lọc sách theo giá và tác giả ===== */
-function setupFilters() {
-  const $priceFilters = $('.filter-section.price a');
-  const $authorFilters = $('.filter-section.author a');
+/* ---------- NẠP DỮ LIỆU VÀ HIỂN THỊ ----------*/
 
-  if (!$priceFilters.length && !$authorFilters.length) return;
+function loadBook() {
+    const books = JSON.parse(localStorage.getItem("books"));
 
-  let priceMin = 0, priceMax = Infinity;
-  let selectedAuthor = 'all';
-
-  $priceFilters.on('click', function (e) {
-    e.preventDefault();
-    priceMin = parseInt($(this).data('min'));
-    priceMax = parseInt($(this).data('max'));
-    setActive($priceFilters, $(this));
-    applyFilters();
-  });
-
-  $authorFilters.on('click', function (e) {
-    e.preventDefault();
-    selectedAuthor = $(this).data('author');
-    setActive($authorFilters, $(this));
-    applyFilters();
-  });
-
-  function applyFilters() {
-    $('.book-card').each(function () {
-      const price = parseInt($(this).data('price'));
-      const author = $(this).data('author');
-
-      const matchPrice = price >= priceMin && price <= priceMax;
-      const matchAuthor = selectedAuthor === 'all' || author === selectedAuthor;
-
-      $(this).parent().css('display', matchPrice && matchAuthor ? 'flex' : 'none');
+    $.each(books, (category, booksInC) => {  // $.each(object, (key,value) => {}); - object
+        renderBooks(category, booksInC);
     });
-  }
+}
 
-  function setActive($list, $active) {
-    $list.removeClass('active');
-    $active.addClass('active');
-  }
+/* ---------- HIỂN THỊ SÁCH THEO FORM AND DANH MỤC ----------*/
+
+function renderBooks(category, booksInC){
+    const $container = $("#" + category); // theo ID
+
+    if(!$container.length) return;
+    if(!booksInC.length) {
+        $container.html("<p>Chưa có sách nào.</p>");
+        return;
+    }
+
+    const max = 4;
+    const limitedBooks = booksInC.slice(0, max); // Hien thi toi da 4 sach dau
+    
+    const html = booksInC.map(book => {
+        const discount = Math.round(100 - (book.price/ book.originalPrice)*100);
+
+    return `
+        <div class="book-f2-one">
+        <div class="book-card" data-id="${book.id}">
+            <div class="book-image">
+            <img src="${book.image || 'https://via.placeholder.com/150'}" alt="${book.title}">
+            </div>
+            <div class="book-content">
+            <h3>${book.title}</h3>
+            <p>Tác giả: ${book.author}</p>
+            </div>
+            <div class="book-price">
+            ${book.originalPrice ? `<div class="original-price">${book.originalPrice.toLocaleString()}.000đ</div>` : ""}
+            <div class="P">
+                <div class="current-price">${book.price.toLocaleString()}.000đ</div>
+                ${discount > 0 ? `<div class="dis-icon">-${discount}%</div>` : ""}
+            </div>
+            </div>
+        </div>
+        </div>
+    `;
+    }).join('');
+    $container.html(html); // chen HTML
+
+    $container.find(".book-card").on("click", function() {
+        const id = $(this).data("id"); // lay du lieu tu id
+        viewData(id);
+    });
 }
