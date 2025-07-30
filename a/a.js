@@ -1,125 +1,89 @@
-// NẠP DỮ LIỆU TỪ localStorage
+let books = {};
 document.addEventListener("DOMContentLoaded", () => {
-  const storedBooks = JSON.parse(localStorage.getItem("books"));
-  if (storedBooks) books = storedBooks;
+    const storedBooks = JSON.parse(localStorage.getItem("books"));
+    if (storedBooks) books = storedBooks;
 
-  Object.keys(books).forEach(renderBooks);
+    Object.keys(books).forEach(category => renderBooks(category, books[category]));
 
-  const form = document.querySelector("form");
-  if (form) {
-    form.addEventListener("submit", handleAddBook);
-  }
+    const form = document.querySelector("#addBookForm");
+    if (form) form.addEventListener("submit", handleAddBook);
 });
 
 function showAddBookModal(category = '') {
-  const modal = document.getElementById("addBookModal");
-  const select = document.getElementById("bookCategory");
-  if (modal) modal.style.display = "block";
-  if (category && select) select.value = category;
+    const modal = document.getElementById("addBookModal");
+    const select = document.getElementById("bookCategory");
+    if (modal) modal.style.display = "block";
+    if (category && select) select.value = category;
 }
 
 function closeAddBookModal() {
-  const modal = document.getElementById("addBookModal");
-  const form = document.querySelector("form");
-  if (modal) modal.style.display = "none";
-  if (form) form.reset();
+    const modal = document.getElementById("addBookModal");
+    const form = document.querySelector("#addBookForm");
+    if (modal) modal.style.display = "none";
+    if (form) form.reset();
 }
 
 // THÊM SÁCH MỚI
 function handleAddBook(e) {
-  e.preventDefault();
+    e.preventDefault(); // 
 
-  const title = document.getElementById("bookTitle").value;
-  const author = document.getElementById("bookAuthor").value;
-  const publisher = document.getElementById("bookPublisher").value;
-  const star = parseFloat(document.getElementById("bookStar").value);
-  const buy = parseInt(document.getElementById("bookBuy").value);
-  const pages = parseInt(document.getElementById("bookPages").value);
-  const year = parseInt(document.getElementById("bookYear").value);
-  const price = parseFloat(document.getElementById("bookPrice").value);
-  const originalPrice = parseFloat(document.getElementById("bookOriginal").value);
-  const discount = Math.round(100 - (price / originalPrice) * 100);
-  const lang = document.getElementById("bookLang").value;
-  const image = document.getElementById("bookImage").value;
-  const description = document.getElementById("bookDesc").value;
-  const category = document.getElementById("bookCategory").value;
+    const title = document.getElementById("bookTitle").value.trim();
+    const author = document.getElementById("bookAuthor").value.trim();
+    const publisher = document.getElementById("bookPublisher").value.trim();
+    const star = parseFloat(document.getElementById("bookStar").value);
+    const buy = parseInt(document.getElementById("bookBuy").value);
+    const pages = parseInt(document.getElementById("bookPages").value);
+    const year = parseInt(document.getElementById("bookYear").value);
+    const price = parseFloat(document.getElementById("bookPrice").value);
+    const originalPrice = parseFloat(document.getElementById("bookOriginal").value);
+    const discount = Math.round(100 - (price / originalPrice) * 100);
+    const lang = document.getElementById("bookLang").value;
+    const image = document.getElementById("bookImage").value.trim();
+    const description = document.getElementById("bookDesc").value.trim();
+    const category = document.getElementById("bookCategory").value;
 
-  const newBook = {
-    id: Date.now(),
-    title, author, publisher, star, buy, pages, year,
-    price, originalPrice, discount, lang, image, description, category
-  };
+    if (!title || !author || !publisher || !lang || !image || !category) {
+        alert("❌ Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
 
-  if (!books[category]) books[category] = [];
-  books[category].push(newBook);
-  localStorage.setItem("books", JSON.stringify(books));
+    if (price <= 0 || originalPrice <= 0 || pages <= 0 || year < 1000 || star < 0 || star > 5) {
+        alert("❌ Vui lòng nhập dữ liệu hợp lệ!");
+        return;
+    }
 
-  const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
-  bookDetails[newBook.id] = newBook;
-  localStorage.setItem("bookDetails", JSON.stringify(bookDetails));
+    const newBook = {
+        id: Date.now(),
+        title, author, publisher, star, buy, pages, year,
+        price, originalPrice, discount, lang, image, description, category
+    };
 
-  renderBooks(category);
-  closeAddBookModal();
-  alert("✅ Đã thêm sách thành công!");
-}
+    if (!books[category]) books[category] = [];
+    books[category].push(newBook);
+    localStorage.setItem("books", JSON.stringify(books));
 
-// HIỂN THỊ SÁCH THEO DANH MỤC
-function renderBooks(category) {
-  const container = document.getElementById(category);
-  const list = books[category];
-  if (!container || !list || list.length === 0) {
-    container.innerHTML = `<p class="empty-state">Chưa có sách nào trong danh mục này</p>`;
-    return;
-  }
-
-  container.innerHTML = list.map(book => `
-    <div class="book-f2-one">
-      <div class="book-card" data-id="${book.id}" data-title="${book.title}" data-author="${book.author}" data-price="${book.price}">
-        <div class="book-image" onclick="viewDetails(${book.id})">
-          <img src="${book.image}" alt="${book.title}" />
-        </div>
-        <div class="book-content">
-          <h3>${book.title}</h3>
-          <p>Tác giả: ${book.author}</p>
-          <p>Giá gốc: ${Number(book.originalPrice).toLocaleString('vi-VN')}.000đ</p>
-          <p>Giá hiện tại: ${Number(book.price).toLocaleString('vi-VN')}.000đ</p>
-        </div>
-        <button onclick="deleteBook(${book.id}, '${category}')">🗑 Xóa</button>
-      </div>
-    </div>
-  `).join('');
+    renderBooks(category, books[category]);
+    closeAddBookModal();
+    alert("✅ Đã thêm sách thành công!");
 }
 
 // XÓA SÁCH
 function deleteBook(bookId, category) {
-  if (!confirm("Bạn có chắc chắn muốn xóa sách này?")) return;
+    if (!confirm("Bạn có chắc chắn muốn xóa sách này?")) return;
 
-  books[category] = books[category].filter(book => book.id !== bookId);
-  localStorage.setItem("books", JSON.stringify(books));
+    books[category] = books[category].filter(book => book.id !== bookId);
+    localStorage.setItem("books", JSON.stringify(books));
 
-  const details = JSON.parse(localStorage.getItem("bookDetails")) || {};
-  delete details[bookId];
-  localStorage.setItem("bookDetails", JSON.stringify(details));
+    const details = JSON.parse(localStorage.getItem("bookDetails")) || {};
+    delete details[bookId];
+    localStorage.setItem("bookDetails", JSON.stringify(details));
 
-  renderBooks(category);
+    renderBooks(category, books[category]);
 }
-
-
-
-// CLICK XEM CHI TIẾT SÁCH
-function viewDetails(id) {
-  const bookDetails = JSON.parse(localStorage.getItem("bookDetails")) || {};
-  const book = bookDetails[id];
-  if (book) {
-    localStorage.setItem("selectedBook", JSON.stringify(book));
-    window.location.href = "book.html";
-  }
-}
-
 // ĐÓNG MODAL KHI CLICK RA NGOÀI
 window.onclick = function (e) {
-  const modal = document.getElementById("addBookModal");
-  if (e.target === modal) {
-    closeAddBookModal();
-  }
+    const modal = document.getElementById("addBookModal");
+    if (e.target === modal) {
+        closeAddBookModal();
+    }
 };
